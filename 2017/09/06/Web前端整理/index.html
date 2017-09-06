@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="小马哥的博客">
 <meta property="og:description" content="React 与 Vue的区别 语法不同   React使用的是JSX语法 Vue使用的是模板语法   架构模式不同   React是MVC架构 Vue是MVVM架构   对state的管理不同   React不能对state直接进行修改，必须通过this.setState进行修改 Vue可以直接对state进行修改，修改后的数据会直接渲染到页面上   对移动端的支持   React有React N">
 <meta property="og:locale" content="zh">
-<meta property="og:updated_time" content="2017-09-06T10:23:27.653Z">
+<meta property="og:updated_time" content="2017-09-06T13:31:03.632Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Web前端整理">
 <meta name="twitter:description" content="React 与 Vue的区别 语法不同   React使用的是JSX语法 Vue使用的是模板语法   架构模式不同   React是MVC架构 Vue是MVVM架构   对state的管理不同   React不能对state直接进行修改，必须通过this.setState进行修改 Vue可以直接对state进行修改，修改后的数据会直接渲染到页面上   对移动端的支持   React有React N">
@@ -248,6 +248,10 @@
 </ul>
 <p><strong>注意</strong>：gulp一直没解决的问题是js模块化编程的文件依赖问题，这也是导致它的市场慢慢的被webpack抢占的原因</p>
 <p><strong>关于webpack和gulp的选择</strong><br>当用webpack无法解决你的问题时，再考虑gulp是否能够实现</p>
+<h2 id="CommonJS、AMD和CMD的区别"><a href="#CommonJS、AMD和CMD的区别" class="headerlink" title="CommonJS、AMD和CMD的区别"></a>CommonJS、AMD和CMD的区别</h2><p><strong> CommonJS </strong><br>CommonJS是同步加载，表示必须要等到模块加载完成之后，才执行后面的操作，所以它只适用于服务器端编程，因为对于服务器，其模块文件一般存放在本地硬盘上，加载起来比较快，不用考虑非同步加载的情况；</p>
+<p><strong> AMD </strong><br>AMD规范则是非同步加载模块，允许指定回调函数，所以它比较适合；<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">define ([&apos;package/lib&apos;], function(lib) &#123;</div><div class="line">    function foo() &#123;</div><div class="line">        lib.log(&apos;hello world&apos;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    return &#123;</div><div class="line">        foo: foo</div><div class="line">    &#125;;</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>而对于浏览器端而言，程序文件都存放在服务器端，其加载速度取决于网速， </p>
+<p>参考：[<a href="http://javascript.ruanyifeng.com/nodejs/module.html" target="_blank" rel="external">http://javascript.ruanyifeng.com/nodejs/module.html</a>]</p>
 
       
 
