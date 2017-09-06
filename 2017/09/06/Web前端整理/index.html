@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="https://shaunzh.github.io">
   <title>Web前端整理 | 小马哥的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="React 与 Vue的区别 语法不同   React使用的是JSX语法 Vue使用的是模板语法   架构模式不同   React是MVC架构 Vue是MVVM架构  ** 对state的管理不同  React不能对state直接进行修改，必须通过this.setState进行修改 Vue可以直接对state进行修改，修改后的数据会直接渲染到页面上   对移动端的支持   React有React">
+  <meta name="description" content="React 与 Vue的区别 语法不同   React使用的是JSX语法 Vue使用的是模板语法   架构模式不同   React是MVC架构 Vue是MVVM架构   对state的管理不同   React不能对state直接进行修改，必须通过this.setState进行修改 Vue可以直接对state进行修改，修改后的数据会直接渲染到页面上   对移动端的支持   React有React N">
 <meta name="keywords" content="Web">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Web前端整理">
 <meta property="og:url" content="https://shaunzh.github.io/2017/09/06/Web前端整理/index.html">
 <meta property="og:site_name" content="小马哥的博客">
-<meta property="og:description" content="React 与 Vue的区别 语法不同   React使用的是JSX语法 Vue使用的是模板语法   架构模式不同   React是MVC架构 Vue是MVVM架构  ** 对state的管理不同  React不能对state直接进行修改，必须通过this.setState进行修改 Vue可以直接对state进行修改，修改后的数据会直接渲染到页面上   对移动端的支持   React有React">
+<meta property="og:description" content="React 与 Vue的区别 语法不同   React使用的是JSX语法 Vue使用的是模板语法   架构模式不同   React是MVC架构 Vue是MVVM架构   对state的管理不同   React不能对state直接进行修改，必须通过this.setState进行修改 Vue可以直接对state进行修改，修改后的数据会直接渲染到页面上   对移动端的支持   React有React N">
 <meta property="og:locale" content="zh">
-<meta property="og:updated_time" content="2017-09-06T08:39:01.984Z">
+<meta property="og:updated_time" content="2017-09-06T10:23:27.653Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Web前端整理">
-<meta name="twitter:description" content="React 与 Vue的区别 语法不同   React使用的是JSX语法 Vue使用的是模板语法   架构模式不同   React是MVC架构 Vue是MVVM架构  ** 对state的管理不同  React不能对state直接进行修改，必须通过this.setState进行修改 Vue可以直接对state进行修改，修改后的数据会直接渲染到页面上   对移动端的支持   React有React">
+<meta name="twitter:description" content="React 与 Vue的区别 语法不同   React使用的是JSX语法 Vue使用的是模板语法   架构模式不同   React是MVC架构 Vue是MVVM架构   对state的管理不同   React不能对state直接进行修改，必须通过this.setState进行修改 Vue可以直接对state进行修改，修改后的数据会直接渲染到页面上   对移动端的支持   React有React N">
   
     <link rel="alternative" href="/atom.xml" title="小马哥的博客" type="application/atom+xml">
   
@@ -215,7 +215,7 @@
 <li>React是MVC架构</li>
 <li>Vue是MVVM架构</li>
 </ul>
-<p>** 对state的管理不同</p>
+<p><strong> 对state的管理不同 </strong></p>
 <ul>
 <li>React不能对state直接进行修改，必须通过<code>this.setState</code>进行修改</li>
 <li>Vue可以直接对state进行修改，修改后的数据会直接渲染到页面上</li>
@@ -233,6 +233,21 @@
 <ul>
 <li>React 大部分是英文资料，而Vue中文教程支持完善</li>
 </ul>
+<p>参考文章：<a href="https://segmentfault.com/a/1190000009268926" target="_blank" rel="external">React还是Vue？</a></p>
+<h2 id="Webpack-和-gulp的区别"><a href="#Webpack-和-gulp的区别" class="headerlink" title="Webpack 和 gulp的区别"></a>Webpack 和 gulp的区别</h2><p>从前端工程化的发展历程说起：</p>
+<ul>
+<li>第一阶段<br>在没有gulp等工具之前，开发人员一般通过工具将代码进行压缩，然后上线</li>
+<li><p>第二阶段 gulp 出现<br>gulp出现之后，文件的压缩、生成base64 就都交给gulp处理了，不需要我们自己手动通过工具来做这些事，但是gulp没有解决js模块化的问题</p>
+</li>
+<li><p>第三阶段 requirejs出现<br>requirejs 主要用于js模块化编程，它基于AMD规范，现在的操作流程是，requirejs实现js的模块化编程并打包，然后通过gulp压缩处理</p>
+</li>
+<li><p>第四阶段 webpack出现<br>webpack将所有的资源都看成一个模块，并通过loader进行引入，且同时支持commonjs、AMD和CMD等规范，所以，很多人就选择webpack进行js的模块化编程并打包，然后使用gulp进行压缩</p>
+</li>
+<li><p>第五阶段 webpack的plugins<br>最后人们发现可以使用webpack的plugins，通过编写一些插件，来完成文件的压缩及其他很多gulp做的事情，同时，还可以利用npm中package.json的scripts来自定义命令，实现自动化，因此，很多人转向了webpack</p>
+</li>
+</ul>
+<p><strong>注意</strong>：gulp一直没解决的问题是js模块化编程的文件依赖问题，这也是导致它的市场慢慢的被webpack抢占的原因</p>
+<p><strong>关于webpack和gulp的选择</strong><br>当用webpack无法解决你的问题时，再考虑gulp是否能够实现</p>
 
       
 
