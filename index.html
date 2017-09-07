@@ -285,7 +285,27 @@
 <li>当处于<code>pending</code>状态时，无法得知目前进展到哪一个阶段(刚刚开始还是即将完成)</li>
 </ol>
 <p>参考：<a href="https://developers.google.com/web/fundamentals/getting-started/primers/promises?hl=zh-cn" target="_blank" rel="external">JavaScript Promise：简介</a><br><a href="https://zhuanlan.zhihu.com/p/25562598" target="_blank" rel="external">nodejs 异步实现</a><br><a href="http://liubin.org/promises-book/" target="_blank" rel="external">promise迷你书</a></p>
-<h2 id="http协议"><a href="#http协议" class="headerlink" title="http协议"></a>http协议</h2><h2 id="前端的性能优化"><a href="#前端的性能优化" class="headerlink" title="前端的性能优化"></a>前端的性能优化</h2><h2 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h2><h2 id="前端通信接口"><a href="#前端通信接口" class="headerlink" title="前端通信接口"></a>前端通信接口</h2><h2 id="各设计模式的应用场景"><a href="#各设计模式的应用场景" class="headerlink" title="各设计模式的应用场景"></a>各设计模式的应用场景</h2><h2 id="当代码更新后发布，如何解决重复访问时，访问的是缓存信息？"><a href="#当代码更新后发布，如何解决重复访问时，访问的是缓存信息？" class="headerlink" title="当代码更新后发布，如何解决重复访问时，访问的是缓存信息？"></a>当代码更新后发布，如何解决重复访问时，访问的是缓存信息？</h2><p>当更新代码时，给代码添加版本号</p>
+<h2 id="http协议"><a href="#http协议" class="headerlink" title="http协议"></a>http协议</h2><h2 id="前端的性能优化"><a href="#前端的性能优化" class="headerlink" title="前端的性能优化"></a>前端的性能优化</h2><p>分为<strong>前端优化</strong></p>
+<ul>
+<li>文件压缩，减小文件大小</li>
+<li>文件合并，减少http请求，同时可以利用缓存</li>
+<li>减少DOM操作，例如在需要遍历DOM时，需要用到DOM节点的长度，可以将其保存起来，而不是去实时查询</li>
+<li>使用事件代理绑定事件</li>
+<li>利用雪碧图</li>
+</ul>
+<p><strong>后端优化：</strong></p>
+<ul>
+<li>服务器端开始gzip，那么服务端传输文件就是经过压缩的</li>
+<li>增加CDN</li>
+<li>添加多个静态资源服务器</li>
+<li>将资源放在多个域名下，提高并发</li>
+</ul>
+<p><strong>体验的优化</strong></p>
+<ul>
+<li>图片懒加载，分页</li>
+<li>功能懒加载（html和css先加载，js最后再加载）</li>
+</ul>
+<h2 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h2><h2 id="前端通信接口"><a href="#前端通信接口" class="headerlink" title="前端通信接口"></a>前端通信接口</h2><h2 id="各设计模式的应用场景"><a href="#各设计模式的应用场景" class="headerlink" title="各设计模式的应用场景"></a>各设计模式的应用场景</h2><h2 id="当代码更新后发布，如何解决重复访问时，访问的是缓存信息？"><a href="#当代码更新后发布，如何解决重复访问时，访问的是缓存信息？" class="headerlink" title="当代码更新后发布，如何解决重复访问时，访问的是缓存信息？"></a>当代码更新后发布，如何解决重复访问时，访问的是缓存信息？</h2><p>当更新代码时，给代码添加版本号</p>
 
       
 
