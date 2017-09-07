@@ -189,7 +189,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/06/Web前端整理/">Web前端整理</a>
+      <a class="article-title" href="/2017/09/06/Web前端整理/">Web前端面试提问</a>
     </h1>
   
 
@@ -249,6 +249,10 @@
 <p><strong> AMD </strong><br>AMD规范则是非同步加载模块，允许指定回调函数，所以它比较适合；<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">define ([&apos;package/lib&apos;], function(lib) &#123;</div><div class="line">    function foo() &#123;</div><div class="line">        lib.log(&apos;hello world&apos;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    return &#123;</div><div class="line">        foo: foo</div><div class="line">    &#125;;</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
 <p>而对于浏览器端而言，程序文件都存放在服务器端，其加载速度取决于网速， </p>
 <p>参考：[<a href="http://javascript.ruanyifeng.com/nodejs/module.html" target="_blank" rel="external">http://javascript.ruanyifeng.com/nodejs/module.html</a>]</p>
+<h2 id="Promise"><a href="#Promise" class="headerlink" title="Promise"></a>Promise</h2><p>JavaScript是 <strong>单线程工作</strong>，意味着两段脚本不能同时运行，必须一个接一个运行，<br>如果要执行异步操作，只能通过 <strong>回调函数和事件</strong>，回调函数嵌套太多会导致代码变得复杂，逻辑不清晰，不利于维护，而且容易导致 <strong>回调地狱</strong></p>
+<h3 id="Promise是什么？"><a href="#Promise是什么？" class="headerlink" title="Promise是什么？"></a>Promise是什么？</h3><p><strong>Promise，简单说就是一个容器，里面保存着某个未来才会结束的事件的结果（通常将就是一个异步操作的结果）。从语法上看，Promise是一个对象，从它可以获取异步操作的消息。</strong></p>
+<h3 id="Promise的特点"><a href="#Promise的特点" class="headerlink" title="Promise的特点"></a>Promise的特点</h3><p>参考：<a href="https://developers.google.com/web/fundamentals/getting-started/primers/promises?hl=zh-cn" target="_blank" rel="external">JavaScript Promise：简介</a><br><a href="https://zhuanlan.zhihu.com/p/25562598" target="_blank" rel="external">nodejs 异步实现</a></p>
+<h2 id="http协议"><a href="#http协议" class="headerlink" title="http协议"></a>http协议</h2><h2 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h2><h2 id="前端通信接口"><a href="#前端通信接口" class="headerlink" title="前端通信接口"></a>前端通信接口</h2><h2 id="各设计模式的应用场景"><a href="#各设计模式的应用场景" class="headerlink" title="各设计模式的应用场景"></a>各设计模式的应用场景</h2><h2 id="当代码更新后发布，如何解决重复访问时，访问的是缓存信息？"><a href="#当代码更新后发布，如何解决重复访问时，访问的是缓存信息？" class="headerlink" title="当代码更新后发布，如何解决重复访问时，访问的是缓存信息？"></a>当代码更新后发布，如何解决重复访问时，访问的是缓存信息？</h2><p>当更新代码时，给代码添加版本号</p>
 
       
 
