@@ -8,18 +8,20 @@
   <link rel="dns-prefetch" href="https://shaunzh.github.io">
   <title>前端基本排序算法 | 小马哥的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="插入排序http://mmbiz.qpic.cn/mmbiz_gif/d8tibSEfhMMpQtsgC9ZZw7VvOtmLPoJSFW1QYtRqUIhtiaqibFbaXWx1ial15e56XmkIiaGYSxwl1D4MDnpdTlG9DVA/0?wx_fmt=gif&amp;amp;tp=webp&amp;amp;wxfrom=5&amp;amp;wx_lazy=1 算法描述：  从第一个元素开始，该元素可以">
+  <meta name="description" content="插入排序 算法描述：  从第一个元素开始，该元素可以认为已经排好序 取出第二个元素，在 已排序的元素（假设是：b）序列中从后向前扫描 如果已排序的元素大于将要排序的元素b，就将已排序的元素向后移动一个位置 重复 步骤3 ，直到找到已排序的元素 小于或等于 将要排序的元素b的位置 然后将元素b插入到该位置 重复步骤2 ~ 5  现有一组数组 arr = [5, 6, 3, 1, 8, 7, 2, 4">
 <meta name="keywords" content="算法">
 <meta property="og:type" content="article">
 <meta property="og:title" content="前端基本排序算法">
 <meta property="og:url" content="https://shaunzh.github.io/2017/09/09/前端基本排序算法/index.html">
 <meta property="og:site_name" content="小马哥的博客">
-<meta property="og:description" content="插入排序http://mmbiz.qpic.cn/mmbiz_gif/d8tibSEfhMMpQtsgC9ZZw7VvOtmLPoJSFW1QYtRqUIhtiaqibFbaXWx1ial15e56XmkIiaGYSxwl1D4MDnpdTlG9DVA/0?wx_fmt=gif&amp;amp;tp=webp&amp;amp;wxfrom=5&amp;amp;wx_lazy=1 算法描述：  从第一个元素开始，该元素可以">
+<meta property="og:description" content="插入排序 算法描述：  从第一个元素开始，该元素可以认为已经排好序 取出第二个元素，在 已排序的元素（假设是：b）序列中从后向前扫描 如果已排序的元素大于将要排序的元素b，就将已排序的元素向后移动一个位置 重复 步骤3 ，直到找到已排序的元素 小于或等于 将要排序的元素b的位置 然后将元素b插入到该位置 重复步骤2 ~ 5  现有一组数组 arr = [5, 6, 3, 1, 8, 7, 2, 4">
 <meta property="og:locale" content="zh">
-<meta property="og:updated_time" content="2017-09-09T03:48:47.732Z">
+<meta property="og:image" content="http://mmbiz.qpic.cn/mmbiz_gif/d8tibSEfhMMpQtsgC9ZZw7VvOtmLPoJSFW1QYtRqUIhtiaqibFbaXWx1ial15e56XmkIiaGYSxwl1D4MDnpdTlG9DVA/0?wx_fmt=gif&tp=webp&wxfrom=5&wx_lazy=1">
+<meta property="og:updated_time" content="2017-09-09T03:52:47.380Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="前端基本排序算法">
-<meta name="twitter:description" content="插入排序http://mmbiz.qpic.cn/mmbiz_gif/d8tibSEfhMMpQtsgC9ZZw7VvOtmLPoJSFW1QYtRqUIhtiaqibFbaXWx1ial15e56XmkIiaGYSxwl1D4MDnpdTlG9DVA/0?wx_fmt=gif&amp;amp;tp=webp&amp;amp;wxfrom=5&amp;amp;wx_lazy=1 算法描述：  从第一个元素开始，该元素可以">
+<meta name="twitter:description" content="插入排序 算法描述：  从第一个元素开始，该元素可以认为已经排好序 取出第二个元素，在 已排序的元素（假设是：b）序列中从后向前扫描 如果已排序的元素大于将要排序的元素b，就将已排序的元素向后移动一个位置 重复 步骤3 ，直到找到已排序的元素 小于或等于 将要排序的元素b的位置 然后将元素b插入到该位置 重复步骤2 ~ 5  现有一组数组 arr = [5, 6, 3, 1, 8, 7, 2, 4">
+<meta name="twitter:image" content="http://mmbiz.qpic.cn/mmbiz_gif/d8tibSEfhMMpQtsgC9ZZw7VvOtmLPoJSFW1QYtRqUIhtiaqibFbaXWx1ial15e56XmkIiaGYSxwl1D4MDnpdTlG9DVA/0?wx_fmt=gif&tp=webp&wxfrom=5&wx_lazy=1">
   
     <link rel="alternative" href="/atom.xml" title="小马哥的博客" type="application/atom+xml">
   
@@ -175,7 +177,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h2><p><a href="http://mmbiz.qpic.cn/mmbiz_gif/d8tibSEfhMMpQtsgC9ZZw7VvOtmLPoJSFW1QYtRqUIhtiaqibFbaXWx1ial15e56XmkIiaGYSxwl1D4MDnpdTlG9DVA/0?wx_fmt=gif&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1" target="_blank" rel="external">http://mmbiz.qpic.cn/mmbiz_gif/d8tibSEfhMMpQtsgC9ZZw7VvOtmLPoJSFW1QYtRqUIhtiaqibFbaXWx1ial15e56XmkIiaGYSxwl1D4MDnpdTlG9DVA/0?wx_fmt=gif&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1</a></p>
+        <h2 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h2><p><img src="http://mmbiz.qpic.cn/mmbiz_gif/d8tibSEfhMMpQtsgC9ZZw7VvOtmLPoJSFW1QYtRqUIhtiaqibFbaXWx1ial15e56XmkIiaGYSxwl1D4MDnpdTlG9DVA/0?wx_fmt=gif&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1" alt="插入排序"></p>
 <p>算法描述：</p>
 <ol>
 <li>从第一个元素开始，该元素可以认为已经排好序</li>
