@@ -6,15 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://shaunzh.github.io">
-  <title>小马哥的博客</title>
+  <title>前端基本排序算法 | 小马哥的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="小马哥的博客">
-<meta property="og:url" content="https://shaunzh.github.io/index.html">
+  <meta name="description" content="插入排序http://mmbiz.qpic.cn/mmbiz_gif/d8tibSEfhMMpQtsgC9ZZw7VvOtmLPoJSFW1QYtRqUIhtiaqibFbaXWx1ial15e56XmkIiaGYSxwl1D4MDnpdTlG9DVA/0?wx_fmt=gif&amp;amp;tp=webp&amp;amp;wxfrom=5&amp;amp;wx_lazy=1 算法描述：  从第一个元素开始，该元素可以">
+<meta name="keywords" content="算法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端基本排序算法">
+<meta property="og:url" content="https://shaunzh.github.io/2017/09/09/前端基本排序算法/index.html">
 <meta property="og:site_name" content="小马哥的博客">
+<meta property="og:description" content="插入排序http://mmbiz.qpic.cn/mmbiz_gif/d8tibSEfhMMpQtsgC9ZZw7VvOtmLPoJSFW1QYtRqUIhtiaqibFbaXWx1ial15e56XmkIiaGYSxwl1D4MDnpdTlG9DVA/0?wx_fmt=gif&amp;amp;tp=webp&amp;amp;wxfrom=5&amp;amp;wx_lazy=1 算法描述：  从第一个元素开始，该元素可以">
 <meta property="og:locale" content="zh">
+<meta property="og:updated_time" content="2017-09-09T03:48:47.732Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="小马哥的博客">
+<meta name="twitter:title" content="前端基本排序算法">
+<meta name="twitter:description" content="插入排序http://mmbiz.qpic.cn/mmbiz_gif/d8tibSEfhMMpQtsgC9ZZw7VvOtmLPoJSFW1QYtRqUIhtiaqibFbaXWx1ial15e56XmkIiaGYSxwl1D4MDnpdTlG9DVA/0?wx_fmt=gif&amp;amp;tp=webp&amp;amp;wxfrom=5&amp;amp;wx_lazy=1 算法描述：  从第一个元素开始，该元素可以">
   
     <link rel="alternative" href="/atom.xml" title="小马哥的博客" type="application/atom+xml">
   
@@ -150,16 +155,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-前端基本排序算法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-前端基本排序算法" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/09/前端基本排序算法/">前端基本排序算法</a>
+    <h1 class="article-title" itemprop="name">
+      前端基本排序算法
     </h1>
   
 
@@ -190,6 +193,27 @@
       
 
       
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
     </div>
     <div class="article-info article-info-index">
       
@@ -208,16 +232,75 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/09/09/前端基本排序算法/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=https://shaunzh.github.io/2017/09/09/前端基本排序算法/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2017/09/06/Web前端整理/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Web前端面试提问</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -237,196 +320,12 @@
 
 
 
-
   
-    <article id="post-Web前端整理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/06/Web前端整理/">Web前端面试提问</a>
-    </h1>
   
 
-        
-        <a href="/2017/09/06/Web前端整理/" class="archive-article-date">
-  	<time datetime="2017-09-06T08:24:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-06</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="React-与-Vue的区别"><a href="#React-与-Vue的区别" class="headerlink" title="React 与 Vue的区别"></a>React 与 Vue的区别</h2><p><strong> 语法不同 </strong></p>
-<ul>
-<li>React使用的是JSX语法</li>
-<li>Vue使用的是模板语法</li>
-</ul>
-<p><strong> 架构模式不同 </strong></p>
-<ul>
-<li>React是MVC架构</li>
-<li>Vue是MVVM架构</li>
-</ul>
-<p><strong> 对state的管理不同 </strong></p>
-<ul>
-<li>React不能对state直接进行修改，必须通过<code>this.setState</code>进行修改</li>
-<li>Vue可以直接对state进行修改，修改后的数据会直接渲染到页面上</li>
-</ul>
-<p><strong> 对移动端的支持 </strong></p>
-<ul>
-<li>React有React Native，支持移动端APP开发</li>
-<li>Vue没有</li>
-</ul>
-<p><strong> 生态 </strong></p>
-<ul>
-<li>React 的生态比 Vue要大 </li>
-</ul>
-<p><strong> 学习难度 </strong></p>
-<ul>
-<li>React 大部分是英文资料，而Vue中文教程支持完善</li>
-</ul>
-<p>参考文章：<a href="https://segmentfault.com/a/1190000009268926" target="_blank" rel="external">React还是Vue？</a></p>
-<h2 id="Webpack-和-gulp的区别"><a href="#Webpack-和-gulp的区别" class="headerlink" title="Webpack 和 gulp的区别"></a>Webpack 和 gulp的区别</h2><p>从前端工程化的发展历程说起：</p>
-<ul>
-<li>第一阶段<br>在没有gulp等工具之前，开发人员一般通过工具将代码进行压缩，然后上线</li>
-<li><p>第二阶段 gulp 出现<br>gulp出现之后，文件的压缩、生成base64 就都交给gulp处理了，不需要我们自己手动通过工具来做这些事，但是gulp没有解决js模块化的问题</p>
-</li>
-<li><p>第三阶段 requirejs出现<br>requirejs 主要用于js模块化编程，它基于AMD规范，现在的操作流程是，requirejs实现js的模块化编程并打包，然后通过gulp压缩处理</p>
-</li>
-<li><p>第四阶段 webpack出现<br>webpack将所有的资源都看成一个模块，并通过loader进行引入，且同时支持commonjs、AMD和CMD等规范，所以，很多人就选择webpack进行js的模块化编程并打包，然后使用gulp进行压缩</p>
-</li>
-<li><p>第五阶段 webpack的plugins<br>最后人们发现可以使用webpack的plugins，通过编写一些插件，来完成文件的压缩及其他很多gulp做的事情，同时，还可以利用npm中package.json的scripts来自定义命令，实现自动化，因此，很多人转向了webpack</p>
-</li>
-</ul>
-<p><strong>注意</strong>：gulp一直没解决的问题是js模块化编程的文件依赖问题，这也是导致它的市场慢慢的被webpack抢占的原因</p>
-<p><strong>关于webpack和gulp的选择</strong><br>当用webpack无法解决你的问题时，再考虑gulp是否能够实现</p>
-<h2 id="CommonJS、AMD和CMD的区别"><a href="#CommonJS、AMD和CMD的区别" class="headerlink" title="CommonJS、AMD和CMD的区别"></a>CommonJS、AMD和CMD的区别</h2><p><strong> CommonJS </strong><br>CommonJS是同步加载，表示必须要等到模块加载完成之后，才执行后面的操作，所以它只适用于服务器端编程，因为对于服务器，其模块文件一般存放在本地硬盘上，加载起来比较快，不用考虑非同步加载的情况；</p>
-<p><strong> AMD </strong><br>AMD规范则是非同步加载模块，允许指定回调函数，所以它比较适合；<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">define ([&apos;package/lib&apos;], function(lib) &#123;</div><div class="line">    function foo() &#123;</div><div class="line">        lib.log(&apos;hello world&apos;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    return &#123;</div><div class="line">        foo: foo</div><div class="line">    &#125;;</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
-<p>而对于浏览器端而言，程序文件都存放在服务器端，其加载速度取决于网速， </p>
-<p>参考：[<a href="http://javascript.ruanyifeng.com/nodejs/module.html" target="_blank" rel="external">http://javascript.ruanyifeng.com/nodejs/module.html</a>]</p>
-<h2 id="Promise"><a href="#Promise" class="headerlink" title="Promise"></a>Promise</h2><h3 id="Promise是什么？"><a href="#Promise是什么？" class="headerlink" title="Promise是什么？"></a>Promise是什么？</h3><p><strong>Promise</strong>是一个进行 <strong>异步处理的对象</strong>，并且其提供了一些 <strong>标准化的接口</strong>，在使用时，必须按照统一的编码方式进行编码，</p>
-<h3 id="Promise解决了什么问题"><a href="#Promise解决了什么问题" class="headerlink" title="Promise解决了什么问题"></a>Promise解决了什么问题</h3><p>JavaScript是 <strong>单线程工作</strong>，意味着两段脚本不能同时运行，必须一个接一个运行，<br>如果要执行异步操作，只能通过 <strong>回调函数和事件</strong>，回调函数嵌套太多会导致代码变得复杂，逻辑不清晰，不利于维护，而且容易导致 <strong>回调地狱</strong>，Promise的出现就是为了解决异步的问题</p>
-<h3 id="使用Promise"><a href="#使用Promise" class="headerlink" title="使用Promise"></a>使用Promise</h3><p>创建一个promise对象的流程如下：</p>
-<ol>
-<li><code>new Promise(fn)</code> 返回一个promise对象</li>
-<li>在<code>fn</code>中指定异步等处理<ul>
-<li>处理结果正常的话，调用<code>resolve(处理结果值)</code></li>
-<li>处理结果错误的话，调用<code>reject(Error对象)</code></li>
-</ul>
-</li>
-</ol>
-<p>下面代码创造了一个<code>Promise</code>实例<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">var promise = new Promise(function(resolve, reject) &#123;</div><div class="line">  // ... some code</div><div class="line"></div><div class="line">  if (/* 异步操作成功 */)&#123;</div><div class="line">    resolve(value);</div><div class="line">  &#125; else &#123;</div><div class="line">    reject(error);</div><div class="line">  &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
-<p>代码分析：</p>
-<ul>
-<li>Promise对象接收一个函数作为参数，该函数带有两个参数: <code>resolve</code>和<code>reject</code>，而<code>resolve</code>和<code>reject</code>都是函数，由Javascript引擎提供，不用自己部署；</li>
-<li><code>resolve</code>函数的作用是：将Promise对象的状态 <strong>从”未完成”变为”成功</strong>（即从pending变为resolved），在异步操作成功时调用，并将异步操作的结果，作为参数传递出去；</li>
-<li><code>reject</code>函数的作用是：将Promise对象的状态从 <strong>“未完成”变为”失败”</strong>(即从 pending变为rejected)，在异步操作失败时调用，并将异步操作报出的错误信息，作为参数传递出去；</li>
-</ul>
-<p>在<code>Promise</code>实例生成以后，可以用<code>then</code>方法分别指定<code>resolved</code>状态和<code>rejected</code>状态的回调函数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">promise.then(function(value) &#123;</div><div class="line">    // success</div><div class="line">&#125;, function(value) &#123;</div><div class="line">    // failure</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
-<p><code>then</code>方法可以接受两个回调函数作为参数。<br>第一个回调函数是<code>Promise</code>对象的状态变为<code>resolved</code>时调用<br>第二个回调函数是<code>Promise</code>对象的状态变为<code>rejected</code>时调用。<br>其中第二个回调函数是可选的，不一定要提供。这两个函数都接收<code>Promise</code>对象传出的值作为<strong>参数</strong>，也就是在<code>Promise</code>对象中<code>resolve()</code>函数和<code>reject()</code>函数传出来的值</p>
-<p>一个示例如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">var getJSON = function(url) &#123;</div><div class="line">  var promise = new Promise(function(resolve, reject)&#123;</div><div class="line">    var client = new XMLHttpRequest();</div><div class="line">    client.open(&quot;GET&quot;, url);</div><div class="line">    client.onreadystatechange = handler;</div><div class="line">    client.responseType = &quot;json&quot;;</div><div class="line">    client.setRequestHeader(&quot;Accept&quot;, &quot;application/json&quot;);</div><div class="line">    client.send();</div><div class="line"></div><div class="line">    function handler() &#123;</div><div class="line">      if (this.readyState !== 4) &#123;</div><div class="line">        return;</div><div class="line">      &#125;</div><div class="line">      if (this.status === 200) &#123;</div><div class="line">        resolve(this.response);</div><div class="line">      &#125; else &#123;</div><div class="line">        reject(new Error(this.statusText));</div><div class="line">      &#125;</div><div class="line">    &#125;;</div><div class="line">  &#125;);</div><div class="line"></div><div class="line">  return promise;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">getJSON(&quot;/posts.json&quot;).then(function(json) &#123;</div><div class="line">  console.log(&apos;Contents: &apos; + json);</div><div class="line">&#125;, function(error) &#123;</div><div class="line">  console.error(&apos;出错了&apos;, error);</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
-<h3 id="Promise的特点"><a href="#Promise的特点" class="headerlink" title="Promise的特点"></a>Promise的特点</h3><ol>
-<li><strong>对象的状态不受外界影响</strong><br>Promise对象的三种状态：<ul>
-<li><code>pending</code>(进行时)</li>
-<li><code>fulfilled</code>(已成功)</li>
-<li><code>rejected</code>(已失败)<br><strong>注意：</strong>只有 <strong>异步操作的结果</strong>(例如：一个使用Promise封装的XMLHttpRequest，其异步操作的结果就是 <em>请求成功</em>或是 <em>请求失败</em>)，可以决定当前是哪一种状态，任何其他操作都无法改变这个状态，这也是<code>Promise</code>这个名字的由来</li>
-</ul>
-</li>
-<li><strong>一旦状态改变，就不会再变，任何时候都可以得到这个结果</strong>。 Promise的状态改变只有两种情况：<strong>从<code>pending</code>变为<code>fulfilled</code> 和 从<code>pending</code>变为<code>rejected</code></strong>。只要这两种情况发生了，状态就<strong>凝固</strong>了，不会再变了，会一直保持这个结果，这时就称为: <strong>resolved(已定型)</strong>。</li>
-</ol>
-<h3 id="Promise的缺点"><a href="#Promise的缺点" class="headerlink" title="Promise的缺点"></a>Promise的缺点</h3><ol>
-<li>无法取消<code>Promise</code>，一旦新建它就会立即执行，无法中途取消</li>
-<li>其次，如果不设置回调函数，<code>Promise</code>内部抛出的错误，不会反应到外部。</li>
-<li>当处于<code>pending</code>状态时，无法得知目前进展到哪一个阶段(刚刚开始还是即将完成)</li>
-</ol>
-<p>参考：<a href="https://developers.google.com/web/fundamentals/getting-started/primers/promises?hl=zh-cn" target="_blank" rel="external">JavaScript Promise：简介</a><br><a href="https://zhuanlan.zhihu.com/p/25562598" target="_blank" rel="external">nodejs 异步实现</a><br><a href="http://liubin.org/promises-book/" target="_blank" rel="external">promise迷你书</a></p>
-<h2 id="http协议"><a href="#http协议" class="headerlink" title="http协议"></a>http协议</h2><h2 id="前端的性能优化"><a href="#前端的性能优化" class="headerlink" title="前端的性能优化"></a>前端的性能优化</h2><p>分为<strong>前端优化</strong></p>
-<ul>
-<li>文件压缩，减小文件大小</li>
-<li>文件合并，减少http请求，同时可以利用缓存</li>
-<li>减少DOM操作，例如在需要遍历DOM时，需要用到DOM节点的长度，可以将其保存起来，而不是去实时查询</li>
-<li>使用事件代理绑定事件</li>
-<li>利用雪碧图</li>
-</ul>
-<p><strong>后端优化：</strong></p>
-<ul>
-<li>服务器端开始gzip，那么服务端传输文件就是经过压缩的</li>
-<li>增加CDN</li>
-<li>添加多个静态资源服务器</li>
-<li>将资源放在多个域名下，提高并发</li>
-</ul>
-<p><strong>体验的优化</strong></p>
-<ul>
-<li>图片懒加载，分页</li>
-<li>功能懒加载（html和css先加载，js最后再加载）</li>
-</ul>
-<h2 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h2><h2 id="前端通信接口"><a href="#前端通信接口" class="headerlink" title="前端通信接口"></a>前端通信接口</h2><h2 id="各设计模式的应用场景"><a href="#各设计模式的应用场景" class="headerlink" title="各设计模式的应用场景"></a>各设计模式的应用场景</h2><h2 id="当代码更新后发布，如何解决重复访问时，访问的是缓存信息？"><a href="#当代码更新后发布，如何解决重复访问时，访问的是缓存信息？" class="headerlink" title="当代码更新后发布，如何解决重复访问时，访问的是缓存信息？"></a>当代码更新后发布，如何解决重复访问时，访问的是缓存信息？</h2><p>当更新代码时，给代码添加版本号</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Web</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Web/" class="article-tag-list-link color4">Web</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/09/06/Web前端整理/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
   
+
   
 
 
@@ -449,8 +348,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
