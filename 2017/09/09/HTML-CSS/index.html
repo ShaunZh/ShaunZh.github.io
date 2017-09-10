@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="小马哥的博客">
 <meta property="og:description" content="HTML 语义化语义化的含义就是：让正确的标签做正确的事为什么要语义化？  在CSS丢失或没有CSS时，页面仍然能够呈现较为清晰的结构 有利于SEO，有助于爬虫抓取抓取更多有效信息，因为搜索引擎的爬虫也要依赖标签来确定上下文和各个关键字的权重 方便其他设备的解析。向PAD、手机等设备对CSS的解析没有电脑那么强 便于团队开发和维护  CSS 相关CSS都有哪些选择器？ 基本选择器 元素选择器 id">
 <meta property="og:locale" content="zh">
-<meta property="og:updated_time" content="2017-09-09T16:12:27.531Z">
+<meta property="og:updated_time" content="2017-09-09T16:21:53.026Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HTML&amp;CSS">
 <meta name="twitter:description" content="HTML 语义化语义化的含义就是：让正确的标签做正确的事为什么要语义化？  在CSS丢失或没有CSS时，页面仍然能够呈现较为清晰的结构 有利于SEO，有助于爬虫抓取抓取更多有效信息，因为搜索引擎的爬虫也要依赖标签来确定上下文和各个关键字的权重 方便其他设备的解析。向PAD、手机等设备对CSS的解析没有电脑那么强 便于团队开发和维护  CSS 相关CSS都有哪些选择器？ 基本选择器 元素选择器 id">
@@ -205,7 +205,14 @@
 </ul>
 <p>###超链接访问过后hover样式就不出现的问题是什么？如何解决？<br>主要是对a链接的伪元素属性没有设置好，设置顺序为：<em>link，visited，hover，active</em></p>
 <h3 id="什么是Css-Hack？ie6-7-8的hack分别是什么？"><a href="#什么是Css-Hack？ie6-7-8的hack分别是什么？" class="headerlink" title="什么是Css Hack？ie6,7,8的hack分别是什么？"></a>什么是Css Hack？ie6,7,8的hack分别是什么？</h3><p>CSS Hack就是：<strong>针对不同的浏览器编写不同的CSS</strong></p>
-<p>最简单的区分ie6、ie7、ie8的CSS Hack，如下所示：<br>```<br>.color {<br>    background-color: #CC00FF;       // 所有浏览器都能识别<br>    background-color: #FF0000\9;     // 只有IE6、 IE7、IE8能识别<br>    *background-color: #0066FF;      // IE6、IE7能识别<br>    +background-color: pink;         // 只有IE7能识别<br>    _background-color: #009933;      // 只有IE6能识别<br>}</p>
+<p>最简单的区分ie6、ie7、ie8的CSS Hack，如下所示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">.color &#123;</div><div class="line">    background-color: #CC00FF;       // 所有浏览器都能识别</div><div class="line">    background-color: #FF0000\9;     // 只有IE6、 IE7、IE8能识别</div><div class="line">    *background-color: #0066FF;      // IE6、IE7能识别</div><div class="line">    +background-color: pink;         // 只有IE7能识别</div><div class="line">    _background-color: #009933;      // 只有IE6能识别</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="DIV-CSS-布局-与-table布局的优缺点"><a href="#DIV-CSS-布局-与-table布局的优缺点" class="headerlink" title="DIV + CSS 布局 与 table布局的优缺点"></a>DIV + CSS 布局 与 table布局的优缺点</h2><p>div + css 布局的优点</p>
+<ul>
+<li>符合W3C标准，结构、行为和样式的分离</li>
+<li>结构清晰，便于扩展</li>
+<li>有利于搜索引擎检索，利于SEO</li>
+</ul>
+<p>参考：<a href="https://stackoverflow.com/questions/83073/why-not-use-tables-for-layout-in-html" target="_blank" rel="external">为什么不使用table布局</a></p>
 
       
 
@@ -442,7 +449,11 @@
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">面试相关</a>
+                <a href="javascript:void(0)" class="js-tag color1">Javascript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -450,11 +461,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Web</a>
+                <a href="javascript:void(0)" class="js-tag color5">面试相关</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+                <a href="javascript:void(0)" class="js-tag color4">Web</a>
               </li>
             
             <div class="clearfix"></div>

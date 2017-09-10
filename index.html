@@ -152,6 +152,92 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-callee和caller用法和区别" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/09/10/callee和caller用法和区别/">callee和caller用法和区别</a>
+    </h1>
+  
+
+        
+        <a href="/2017/09/10/callee和caller用法和区别/" class="archive-article-date">
+  	<time datetime="2017-09-10T03:04:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>从字面上看，<code>callee</code>的意思是<em>被调用者</em>， <code>caller</code>的意思是<em>调用者</em>；<br>在JavaScript MDN上可以看到比较官方的解释：</p>
+<ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/arguments/callee" target="_blank" rel="external">callee</a>: 指向当前被调用的函数</li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/arguments/caller" target="_blank" rel="external">caller</a>: 指向调用当前函数的函数</li>
+</ul>
+<h2 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">var readBook = function()&#123;</div><div class="line">    console.log(arguments.callee);//这里返回的是readBook函数</div><div class="line">    console.log(arguments.caller);//这里返回的应该是go函数，注意是“应该”</div><div class="line">&#125;;</div><div class="line">var go = function()&#123;</div><div class="line">    readBook();</div><div class="line">&#125;;</div><div class="line">go();</div></pre></td></tr></table></figure>
+<p>然而运行一下这串代码就会发现，callee确实是返回正在执行的参数readBook，而caller返回的是undefined。</p>
+<p>在<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/arguments/caller" target="_blank" rel="external">caller的官方文档中</a>可以发现，<code>arguments.caller</code>已经不被推荐，但是可以仍然可以通过<code>Function.caller</code>访问，</p>
+<p>如:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">function whoCalled() &#123;</div><div class="line">   if (whoCalled.caller == null)</div><div class="line">      console.log(&apos;I was called from the global scope.&apos;);</div><div class="line">   else</div><div class="line">      console.log(whoCalled.caller + &apos; called me!&apos;);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><p>值得注意的是，在 <strong>严格模式</strong>下，使用<code>arguments.callee</code>和<code>Function.caller</code>时浏览器都会抛出错误，还有在 <strong>严格模式</strong>下，假如给caller属性赋值的话，同样也会抛出错误。</p>
+<h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><p>在实现递归的时候，可以达到解耦的作用，我们可以不必理会函数名是什么。例如下面的阶乘函数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">function factorial(number)&#123;</div><div class="line">  if(number &lt;= 1)&#123;</div><div class="line">    return 1;</div><div class="line">  &#125;else&#123;</div><div class="line">    return number*arguments.callee(number-1);</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">factorial(100);</div></pre></td></tr></table></figure></p>
+<h2 id="兼容性"><a href="#兼容性" class="headerlink" title="兼容性"></a>兼容性</h2><p>几乎所有浏览器都支持 <strong>callee</strong>属性，而对于 <strong>caller</strong>则并基本上不支持，尽量不要使用。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/arguments/caller" target="_blank" rel="external">caller</a><br><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/arguments/callee" target="_blank" rel="external">callee</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Javascript</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/09/10/callee和caller用法和区别/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-性能优化" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -282,7 +368,14 @@
 </ul>
 <p>###超链接访问过后hover样式就不出现的问题是什么？如何解决？<br>主要是对a链接的伪元素属性没有设置好，设置顺序为：<em>link，visited，hover，active</em></p>
 <h3 id="什么是Css-Hack？ie6-7-8的hack分别是什么？"><a href="#什么是Css-Hack？ie6-7-8的hack分别是什么？" class="headerlink" title="什么是Css Hack？ie6,7,8的hack分别是什么？"></a>什么是Css Hack？ie6,7,8的hack分别是什么？</h3><p>CSS Hack就是：<strong>针对不同的浏览器编写不同的CSS</strong></p>
-<p>最简单的区分ie6、ie7、ie8的CSS Hack，如下所示：<br>```<br>.color {<br>    background-color: #CC00FF;       // 所有浏览器都能识别<br>    background-color: #FF0000\9;     // 只有IE6、 IE7、IE8能识别<br>    *background-color: #0066FF;      // IE6、IE7能识别<br>    +background-color: pink;         // 只有IE7能识别<br>    _background-color: #009933;      // 只有IE6能识别<br>}</p>
+<p>最简单的区分ie6、ie7、ie8的CSS Hack，如下所示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">.color &#123;</div><div class="line">    background-color: #CC00FF;       // 所有浏览器都能识别</div><div class="line">    background-color: #FF0000\9;     // 只有IE6、 IE7、IE8能识别</div><div class="line">    *background-color: #0066FF;      // IE6、IE7能识别</div><div class="line">    +background-color: pink;         // 只有IE7能识别</div><div class="line">    _background-color: #009933;      // 只有IE6能识别</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="DIV-CSS-布局-与-table布局的优缺点"><a href="#DIV-CSS-布局-与-table布局的优缺点" class="headerlink" title="DIV + CSS 布局 与 table布局的优缺点"></a>DIV + CSS 布局 与 table布局的优缺点</h2><p>div + css 布局的优点</p>
+<ul>
+<li>符合W3C标准，结构、行为和样式的分离</li>
+<li>结构清晰，便于扩展</li>
+<li>有利于搜索引擎检索，利于SEO</li>
+</ul>
+<p>参考：<a href="https://stackoverflow.com/questions/83073/why-not-use-tables-for-layout-in-html" target="_blank" rel="external">为什么不使用table布局</a></p>
 
       
 
@@ -791,7 +884,11 @@
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">面试相关</a>
+                <a href="javascript:void(0)" class="js-tag color1">Javascript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -799,11 +896,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Web</a>
+                <a href="javascript:void(0)" class="js-tag color5">面试相关</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+                <a href="javascript:void(0)" class="js-tag color4">Web</a>
               </li>
             
             <div class="clearfix"></div>
