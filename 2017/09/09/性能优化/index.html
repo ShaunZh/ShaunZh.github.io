@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="小马哥的博客">
 <meta property="og:description" content="谈谈以前端角度出发做好SEO需要考虑什么？ 了解搜索引擎是如何抓取网页和索引网页 Meta标签的优化主要包括：主题(title), 网站描述(Description), 和关键字(keywords) 合理使用标签 如何选取关键词，并在网页中放置关键字搜索就得用关键词。关键词分析和选择是SEO最重要的工作之一。首先要给网站确定主关键词（一般在5个上下），然后针对这些关键词进行优化，包括关键词密度（D">
 <meta property="og:locale" content="zh">
-<meta property="og:updated_time" content="2017-09-09T07:32:34.815Z">
+<meta property="og:updated_time" content="2017-09-11T06:48:40.112Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SEO的一些介绍">
 <meta name="twitter:description" content="谈谈以前端角度出发做好SEO需要考虑什么？ 了解搜索引擎是如何抓取网页和索引网页 Meta标签的优化主要包括：主题(title), 网站描述(Description), 和关键字(keywords) 合理使用标签 如何选取关键词，并在网页中放置关键字搜索就得用关键词。关键词分析和选择是SEO最重要的工作之一。首先要给网站确定主关键词（一般在5个上下），然后针对这些关键词进行优化，包括关键词密度（D">
@@ -181,6 +181,32 @@
 <li>合理使用标签</li>
 <li>如何选取关键词，并在网页中放置关键字<br>搜索就得用关键词。关键词分析和选择是SEO最重要的工作之一。首先要给网站确定主关键词（一般在5个上下），然后针对这些关键词进行优化，包括关键词密度（Density），相关度（Relavancy），突出性（Prominency）等等。</li>
 <li>了解主要的搜索引擎</li>
+</ul>
+<h2 id="前端的性能优化"><a href="#前端的性能优化" class="headerlink" title="前端的性能优化"></a>前端的性能优化</h2><p><strong>前端优化</strong></p>
+<ul>
+<li>文件压缩，减小文件大小</li>
+<li>文件合并，减少http请求，同时可以利用缓存</li>
+<li>减少DOM操作，例如在需要遍历DOM时，需要用到DOM节点的长度，可以将其保存起来，而不是去实时查询</li>
+<li>使用事件代理绑定事件</li>
+<li>利用雪碧图</li>
+</ul>
+<p><strong>体验的优化</strong></p>
+<ul>
+<li>图片懒加载，分页</li>
+<li>功能懒加载（html和css先加载，js最后再加载）</li>
+</ul>
+<p><strong>后端优化：</strong></p>
+<ul>
+<li>服务器端开始gzip，那么服务端传输文件就是经过压缩的</li>
+<li>增加CDN</li>
+<li>添加多个静态资源服务器</li>
+<li>将资源放在多个域名下，提高并发</li>
+</ul>
+<h2 id="为什么利用多个域名来存储网站资源会更有效"><a href="#为什么利用多个域名来存储网站资源会更有效" class="headerlink" title="为什么利用多个域名来存储网站资源会更有效"></a>为什么利用多个域名来存储网站资源会更有效</h2><ul>
+<li>CDN缓存更方便</li>
+<li>突破浏览器的并发限制(浏览器的并发限制是基于domain来实现的，目前并发最大支持8个，也就是说同一个域名同一时间，最多发送8个请求，假设有16个资源要访问，那么必须分两次请求，其实这里面应该是当完成一个请求之后，再继续下一个请求，只是最大保持在线请求为8个，如果16个资源都放在一个domain下，那么最少两次请求，才能全部获取到资源，假设将16个资源放在两个域名下，那么就可以同时往两个域名下各发送一次请求，相当于时间减少了一半)</li>
+<li>节约cookie 带宽</li>
+<li>减少主域名的连接数，从而提高客户端网络带宽的利用率，优化页面响应</li>
 </ul>
 
       
@@ -418,11 +444,19 @@
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">面试相关</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Javascript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+                <a href="javascript:void(0)" class="js-tag color4">Web</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">leetcode</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -430,11 +464,7 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">面试相关</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Web</a>
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
             
             <div class="clearfix"></div>

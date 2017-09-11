@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="小马哥的博客">
 <meta property="og:description" content="React 与 Vue的区别 语法不同   React使用的是JSX语法 Vue使用的是模板语法   架构模式不同   React是MVC架构 Vue是MVVM架构   对state的管理不同   React不能对state直接进行修改，必须通过this.setState进行修改 Vue可以直接对state进行修改，修改后的数据会直接渲染到页面上   对移动端的支持   React有React N">
 <meta property="og:locale" content="zh">
-<meta property="og:updated_time" content="2017-09-09T03:39:18.803Z">
+<meta property="og:updated_time" content="2017-09-11T08:04:09.397Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Web前端面试提问">
 <meta name="twitter:description" content="React 与 Vue的区别 语法不同   React使用的是JSX语法 Vue使用的是模板语法   架构模式不同   React是MVC架构 Vue是MVVM架构   对state的管理不同   React不能对state直接进行修改，必须通过this.setState进行修改 Vue可以直接对state进行修改，修改后的数据会直接渲染到页面上   对移动端的支持   React有React N">
@@ -220,65 +220,22 @@
 <p><strong>关于webpack和gulp的选择</strong><br>当用webpack无法解决你的问题时，再考虑gulp是否能够实现</p>
 <h2 id="CommonJS、AMD和CMD的区别"><a href="#CommonJS、AMD和CMD的区别" class="headerlink" title="CommonJS、AMD和CMD的区别"></a>CommonJS、AMD和CMD的区别</h2><p><strong> CommonJS </strong><br>CommonJS是同步加载，表示必须要等到模块加载完成之后，才执行后面的操作，所以它只适用于服务器端编程，因为对于服务器，其模块文件一般存放在本地硬盘上，加载起来比较快，不用考虑非同步加载的情况；</p>
 <p><strong> AMD </strong><br>AMD规范则是非同步加载模块，允许指定回调函数，所以它比较适合；<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">define ([&apos;package/lib&apos;], function(lib) &#123;</div><div class="line">    function foo() &#123;</div><div class="line">        lib.log(&apos;hello world&apos;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    return &#123;</div><div class="line">        foo: foo</div><div class="line">    &#125;;</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
-<p>而对于浏览器端而言，程序文件都存放在服务器端，其加载速度取决于网速， </p>
-<p>参考：[<a href="http://javascript.ruanyifeng.com/nodejs/module.html" target="_blank" rel="external">http://javascript.ruanyifeng.com/nodejs/module.html</a>]</p>
-<h2 id="Promise"><a href="#Promise" class="headerlink" title="Promise"></a>Promise</h2><h3 id="Promise是什么？"><a href="#Promise是什么？" class="headerlink" title="Promise是什么？"></a>Promise是什么？</h3><p><strong>Promise</strong>是一个进行 <strong>异步处理的对象</strong>，并且其提供了一些 <strong>标准化的接口</strong>，在使用时，必须按照统一的编码方式进行编码，</p>
-<h3 id="Promise解决了什么问题"><a href="#Promise解决了什么问题" class="headerlink" title="Promise解决了什么问题"></a>Promise解决了什么问题</h3><p>JavaScript是 <strong>单线程工作</strong>，意味着两段脚本不能同时运行，必须一个接一个运行，<br>如果要执行异步操作，只能通过 <strong>回调函数和事件</strong>，回调函数嵌套太多会导致代码变得复杂，逻辑不清晰，不利于维护，而且容易导致 <strong>回调地狱</strong>，Promise的出现就是为了解决异步的问题</p>
-<h3 id="使用Promise"><a href="#使用Promise" class="headerlink" title="使用Promise"></a>使用Promise</h3><p>创建一个promise对象的流程如下：</p>
-<ol>
-<li><code>new Promise(fn)</code> 返回一个promise对象</li>
-<li>在<code>fn</code>中指定异步等处理<ul>
-<li>处理结果正常的话，调用<code>resolve(处理结果值)</code></li>
-<li>处理结果错误的话，调用<code>reject(Error对象)</code></li>
-</ul>
-</li>
-</ol>
-<p>下面代码创造了一个<code>Promise</code>实例<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">var promise = new Promise(function(resolve, reject) &#123;</div><div class="line">  // ... some code</div><div class="line"></div><div class="line">  if (/* 异步操作成功 */)&#123;</div><div class="line">    resolve(value);</div><div class="line">  &#125; else &#123;</div><div class="line">    reject(error);</div><div class="line">  &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
-<p>代码分析：</p>
+<p>而对于浏览器端而言，程序文件都存放在服务器端，其加载速度取决于网速，<br>参考：[<a href="http://javascript.ruanyifeng.com/nodejs/module.html" target="_blank" rel="external">http://javascript.ruanyifeng.com/nodejs/module.html</a>]</p>
+<h2 id="http协议"><a href="#http协议" class="headerlink" title="http协议"></a>http协议</h2><h2 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h2><h2 id="前端通信接口"><a href="#前端通信接口" class="headerlink" title="前端通信接口"></a>前端通信接口</h2><h2 id="各设计模式的应用场景"><a href="#各设计模式的应用场景" class="headerlink" title="各设计模式的应用场景"></a>各设计模式的应用场景</h2><h2 id="当代码更新后发布，如何解决重复访问时，访问的是缓存信息？"><a href="#当代码更新后发布，如何解决重复访问时，访问的是缓存信息？" class="headerlink" title="当代码更新后发布，如何解决重复访问时，访问的是缓存信息？"></a>当代码更新后发布，如何解决重复访问时，访问的是缓存信息？</h2><p>当更新代码时，给代码添加版本号</p>
+<h2 id="ajax的优缺点？"><a href="#ajax的优缺点？" class="headerlink" title="ajax的优缺点？"></a>ajax的优缺点？</h2><p><strong>什么是ajax</strong><br>  ajax是通过JavaScript异步获取数据，进行局部页面刷新的技术</p>
+<p><strong>优点</strong></p>
 <ul>
-<li>Promise对象接收一个函数作为参数，该函数带有两个参数: <code>resolve</code>和<code>reject</code>，而<code>resolve</code>和<code>reject</code>都是函数，由Javascript引擎提供，不用自己部署；</li>
-<li><code>resolve</code>函数的作用是：将Promise对象的状态 <strong>从”未完成”变为”成功</strong>（即从pending变为resolved），在异步操作成功时调用，并将异步操作的结果，作为参数传递出去；</li>
-<li><code>reject</code>函数的作用是：将Promise对象的状态从 <strong>“未完成”变为”失败”</strong>(即从 pending变为rejected)，在异步操作失败时调用，并将异步操作报出的错误信息，作为参数传递出去；</li>
+<li>提高用户体验</li>
+<li>较少带宽并增加速度</li>
+<li>提高工作效率<br>因为有很多封装好的ajax类库，很方便就可以与服务器进行通信</li>
+<li>支持异步操作</li>
 </ul>
-<p>在<code>Promise</code>实例生成以后，可以用<code>then</code>方法分别指定<code>resolved</code>状态和<code>rejected</code>状态的回调函数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">promise.then(function(value) &#123;</div><div class="line">    // success</div><div class="line">&#125;, function(value) &#123;</div><div class="line">    // failure</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
-<p><code>then</code>方法可以接受两个回调函数作为参数。<br>第一个回调函数是<code>Promise</code>对象的状态变为<code>resolved</code>时调用<br>第二个回调函数是<code>Promise</code>对象的状态变为<code>rejected</code>时调用。<br>其中第二个回调函数是可选的，不一定要提供。这两个函数都接收<code>Promise</code>对象传出的值作为<strong>参数</strong>，也就是在<code>Promise</code>对象中<code>resolve()</code>函数和<code>reject()</code>函数传出来的值</p>
-<p>一个示例如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">var getJSON = function(url) &#123;</div><div class="line">  var promise = new Promise(function(resolve, reject)&#123;</div><div class="line">    var client = new XMLHttpRequest();</div><div class="line">    client.open(&quot;GET&quot;, url);</div><div class="line">    client.onreadystatechange = handler;</div><div class="line">    client.responseType = &quot;json&quot;;</div><div class="line">    client.setRequestHeader(&quot;Accept&quot;, &quot;application/json&quot;);</div><div class="line">    client.send();</div><div class="line"></div><div class="line">    function handler() &#123;</div><div class="line">      if (this.readyState !== 4) &#123;</div><div class="line">        return;</div><div class="line">      &#125;</div><div class="line">      if (this.status === 200) &#123;</div><div class="line">        resolve(this.response);</div><div class="line">      &#125; else &#123;</div><div class="line">        reject(new Error(this.statusText));</div><div class="line">      &#125;</div><div class="line">    &#125;;</div><div class="line">  &#125;);</div><div class="line"></div><div class="line">  return promise;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">getJSON(&quot;/posts.json&quot;).then(function(json) &#123;</div><div class="line">  console.log(&apos;Contents: &apos; + json);</div><div class="line">&#125;, function(error) &#123;</div><div class="line">  console.error(&apos;出错了&apos;, error);</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
-<h3 id="Promise的特点"><a href="#Promise的特点" class="headerlink" title="Promise的特点"></a>Promise的特点</h3><ol>
-<li><strong>对象的状态不受外界影响</strong><br>Promise对象的三种状态：<ul>
-<li><code>pending</code>(进行时)</li>
-<li><code>fulfilled</code>(已成功)</li>
-<li><code>rejected</code>(已失败)<br><strong>注意：</strong>只有 <strong>异步操作的结果</strong>(例如：一个使用Promise封装的XMLHttpRequest，其异步操作的结果就是 <em>请求成功</em>或是 <em>请求失败</em>)，可以决定当前是哪一种状态，任何其他操作都无法改变这个状态，这也是<code>Promise</code>这个名字的由来</li>
-</ul>
-</li>
-<li><strong>一旦状态改变，就不会再变，任何时候都可以得到这个结果</strong>。 Promise的状态改变只有两种情况：<strong>从<code>pending</code>变为<code>fulfilled</code> 和 从<code>pending</code>变为<code>rejected</code></strong>。只要这两种情况发生了，状态就<strong>凝固</strong>了，不会再变了，会一直保持这个结果，这时就称为: <strong>resolved(已定型)</strong>。</li>
-</ol>
-<h3 id="Promise的缺点"><a href="#Promise的缺点" class="headerlink" title="Promise的缺点"></a>Promise的缺点</h3><ol>
-<li>无法取消<code>Promise</code>，一旦新建它就会立即执行，无法中途取消</li>
-<li>其次，如果不设置回调函数，<code>Promise</code>内部抛出的错误，不会反应到外部。</li>
-<li>当处于<code>pending</code>状态时，无法得知目前进展到哪一个阶段(刚刚开始还是即将完成)</li>
-</ol>
-<p>参考：<a href="https://developers.google.com/web/fundamentals/getting-started/primers/promises?hl=zh-cn" target="_blank" rel="external">JavaScript Promise：简介</a><br><a href="https://zhuanlan.zhihu.com/p/25562598" target="_blank" rel="external">nodejs 异步实现</a><br><a href="http://liubin.org/promises-book/" target="_blank" rel="external">promise迷你书</a></p>
-<h2 id="http协议"><a href="#http协议" class="headerlink" title="http协议"></a>http协议</h2><h2 id="前端的性能优化"><a href="#前端的性能优化" class="headerlink" title="前端的性能优化"></a>前端的性能优化</h2><p>分为<strong>前端优化</strong></p>
+<p><strong>缺点</strong></p>
 <ul>
-<li>文件压缩，减小文件大小</li>
-<li>文件合并，减少http请求，同时可以利用缓存</li>
-<li>减少DOM操作，例如在需要遍历DOM时，需要用到DOM节点的长度，可以将其保存起来，而不是去实时查询</li>
-<li>使用事件代理绑定事件</li>
-<li>利用雪碧图</li>
+<li>浏览器兼容性问题<br>因为ajax高度依赖JavaScript，而不同的浏览器对于JavaScript的支持程度不同，因此存在有兼容性问题</li>
+<li>增加web服务器的负载<br>例如：增加一个自动更新的功能，每隔几秒钟就发送一次请求，那么就会增加服务器的负担</li>
+<li>不安全性<br>因为是异步获取数据，所以导致调试不便</li>
 </ul>
-<p><strong>后端优化：</strong></p>
-<ul>
-<li>服务器端开始gzip，那么服务端传输文件就是经过压缩的</li>
-<li>增加CDN</li>
-<li>添加多个静态资源服务器</li>
-<li>将资源放在多个域名下，提高并发</li>
-</ul>
-<p><strong>体验的优化</strong></p>
-<ul>
-<li>图片懒加载，分页</li>
-<li>功能懒加载（html和css先加载，js最后再加载）</li>
-</ul>
-<h2 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h2><h2 id="前端通信接口"><a href="#前端通信接口" class="headerlink" title="前端通信接口"></a>前端通信接口</h2><h2 id="各设计模式的应用场景"><a href="#各设计模式的应用场景" class="headerlink" title="各设计模式的应用场景"></a>各设计模式的应用场景</h2><h2 id="当代码更新后发布，如何解决重复访问时，访问的是缓存信息？"><a href="#当代码更新后发布，如何解决重复访问时，访问的是缓存信息？" class="headerlink" title="当代码更新后发布，如何解决重复访问时，访问的是缓存信息？"></a>当代码更新后发布，如何解决重复访问时，访问的是缓存信息？</h2><p>当更新代码时，给代码添加版本号</p>
 
       
 
@@ -521,11 +478,19 @@
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">面试相关</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Javascript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+                <a href="javascript:void(0)" class="js-tag color4">Web</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">leetcode</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -533,11 +498,7 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">面试相关</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Web</a>
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
             
             <div class="clearfix"></div>
