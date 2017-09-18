@@ -6,15 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://shaunzh.github.io">
-  <title>Category: Web | 小马哥的博客</title>
+  <title>WebSocket学习 | 小马哥的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="小马哥的博客">
-<meta property="og:url" content="https://shaunzh.github.io/categories/Web/index.html">
+  <meta name="description" content="WebSocket是一种网络通信协议 为什么需要WebSocket因为HTTP协议有一个缺陷：通信只能由客户端发起；如果需要获取到服务器端的数据更新，只能由客户端轮询服务器端，这样 效率极低且浪费资源。基于以上原因，WebSocket就出现了 简介WebSocket协议2008年诞生，2011年成为国际标准。 最大特点：服务器可以主动向客户端推送信息，客户端也可以主动向服务器发送信息，是真正的双向">
+<meta name="keywords" content="WEB">
+<meta property="og:type" content="article">
+<meta property="og:title" content="WebSocket学习">
+<meta property="og:url" content="https://shaunzh.github.io/2017/09/18/WebSocket学习/index.html">
 <meta property="og:site_name" content="小马哥的博客">
+<meta property="og:description" content="WebSocket是一种网络通信协议 为什么需要WebSocket因为HTTP协议有一个缺陷：通信只能由客户端发起；如果需要获取到服务器端的数据更新，只能由客户端轮询服务器端，这样 效率极低且浪费资源。基于以上原因，WebSocket就出现了 简介WebSocket协议2008年诞生，2011年成为国际标准。 最大特点：服务器可以主动向客户端推送信息，客户端也可以主动向服务器发送信息，是真正的双向">
 <meta property="og:locale" content="zh">
+<meta property="og:image" content="http://www.ruanyifeng.com/blogimg/asset/2017/bg2017051503.jpg">
+<meta property="og:updated_time" content="2017-09-18T03:19:51.789Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="小马哥的博客">
+<meta name="twitter:title" content="WebSocket学习">
+<meta name="twitter:description" content="WebSocket是一种网络通信协议 为什么需要WebSocket因为HTTP协议有一个缺陷：通信只能由客户端发起；如果需要获取到服务器端的数据更新，只能由客户端轮询服务器端，这样 效率极低且浪费资源。基于以上原因，WebSocket就出现了 简介WebSocket协议2008年诞生，2011年成为国际标准。 最大特点：服务器可以主动向客户端推送信息，客户端也可以主动向服务器发送信息，是真正的双向">
+<meta name="twitter:image" content="http://www.ruanyifeng.com/blogimg/asset/2017/bg2017051503.jpg">
   
     <link rel="alternative" href="/atom.xml" title="小马哥的博客" type="application/atom+xml">
   
@@ -150,71 +157,187 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-WebSocket学习" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/09/06/Web前端整理/" class="archive-article-date">
-  	<time datetime="2017-09-06T08:24:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-06</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/09/06/Web前端整理/">Web前端面试提问</a>
+    <h1 class="article-title" itemprop="name">
+      WebSocket学习
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2017/09/18/WebSocket学习/" class="archive-article-date">
+  	<time datetime="2017-09-18T00:47:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>WebSocket是一种网络通信协议</p>
+<h2 id="为什么需要WebSocket"><a href="#为什么需要WebSocket" class="headerlink" title="为什么需要WebSocket"></a>为什么需要WebSocket</h2><p>因为HTTP协议有一个缺陷：<strong>通信只能由客户端发起</strong>；如果需要获取到服务器端的数据更新，只能由客户端轮询服务器端，这样 <strong>效率极低且浪费资源</strong>。<br>基于以上原因，WebSocket就出现了</p>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>WebSocket协议2008年诞生，2011年成为国际标准。</p>
+<p>最大特点：<strong>服务器可以主动向客户端推送信息，客户端也可以主动向服务器发送信息，是真正的双向平等对话</strong></p>
+<p>其他特点包括：</p>
+<ul>
+<li>建立在TCP协议之上，服务器端的实现比较容易</li>
+<li>与HTTP协议有着良好的兼容性。默认端口也是80和443，并且握手阶段采用HTTP协议，因此握手时不容易屏蔽，能通过各种HTTP代理服务器</li>
+<li>数据格式比较轻量，性能开销小，通信高效</li>
+<li>可发送文本，也可以发送二进制数据</li>
+<li>没有同源限制，客户端可以与任意服务器通信</li>
+<li>协议标识符是<code>ws</code>(如果加密，则为<code>wss</code>)，服务器网址就是URL</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ws://example.com:80/some/path</div></pre></td></tr></table></figure>
+<p><img src="http://www.ruanyifeng.com/blogimg/asset/2017/bg2017051503.jpg" alt="对比图"></p>
+<h2 id="客户端的简单示例"><a href="#客户端的简单示例" class="headerlink" title="客户端的简单示例"></a>客户端的简单示例</h2><p>WebSocket的用法很简单<br>例子如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">var ws = new WebSocket(&quot;wss://echo.websocket.org&quot;);</div><div class="line"></div><div class="line">ws.onopen = function(evt) &#123;</div><div class="line">  console.log(&quot;Connection open ...&quot;);</div><div class="line">  ws.send(&quot;Hello WebSocket!&quot;);</div><div class="line">&#125;</div><div class="line"></div><div class="line">ws.onmessage = function(evt) &#123;</div><div class="line">  console.log(&quot;Received Message: &quot; + evt.data);</div><div class="line">  ws.close();</div><div class="line">&#125;</div><div class="line"></div><div class="line">ws.onclose = function(evt) &#123;</div><div class="line">  console.log(&quot;Connection closed.&quot;);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="客户端的API"><a href="#客户端的API" class="headerlink" title="客户端的API"></a>客户端的API</h2><h3 id="WebSocket构造函数"><a href="#WebSocket构造函数" class="headerlink" title="WebSocket构造函数"></a>WebSocket构造函数</h3><p>WebSocket 对象作为一个构造函数，用于新建WebSocket实例。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var ws = new WebSocket(&apos;ws://localhost:8080&apos;);</div></pre></td></tr></table></figure></p>
+<p>执行上面语句之后，客户端就会与服务器进行连接。<br>实例对象的所有属性和方法清单，参见<a href="https://developer.mozilla.org/en-US/docs/Web/API/WebSocket" target="_blank" rel="external">WebSocket</a></p>
+<h3 id="WebSocket-readyState"><a href="#WebSocket-readyState" class="headerlink" title="WebSocket.readyState"></a>WebSocket.readyState</h3><p><code>readyState</code>属性返回实例对象的当前状态，共有四种。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">- CONNETCTION: 值为0，表示正在连接</div><div class="line">- OPEN: 值为1，表示连接成功，可以通信了</div><div class="line">- CLOSING: 值为2，表示连接正在关闭</div><div class="line">- CLOSED: 值为3，表示连接已经关闭，或者打开连接失败</div></pre></td></tr></table></figure>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<li><a href="http://www.ruanyifeng.com/blog/2017/05/websocket.html" target="_blank" rel="external">WebSocket教程</a></li>
+</ul>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Web</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">WEB</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Web/" class="article-tag-list-link color4">Web</a>
-        		</li>
-      		
-		</ul>
-	</div>
+      
 
+      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=https://shaunzh.github.io/2017/09/18/WebSocket学习/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2017/09/16/在线便利贴项目记录/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">在线便利贴项目记录</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
 
 
           </div>
@@ -237,10 +360,10 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
-		isCategory: true,
+		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
 		root: "/",

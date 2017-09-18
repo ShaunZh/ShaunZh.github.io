@@ -6,15 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://shaunzh.github.io">
-  <title>Category: Web | 小马哥的博客</title>
+  <title>在线便利贴项目记录 | 小马哥的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="小马哥的博客">
-<meta property="og:url" content="https://shaunzh.github.io/categories/Web/index.html">
+  <meta name="description" content="步骤包安装 express安装npm install express --save express 脚手架生成器安装npm install express-generator --save-dev作用：搭建一个网站应该有的框架 使用express-generator在当前目录下生成应用因为express-generator是安装在本地的，所以不能直接使用express生成，需要找到express-">
+<meta name="keywords" content="个人项目">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在线便利贴项目记录">
+<meta property="og:url" content="https://shaunzh.github.io/2017/09/16/在线便利贴项目记录/index.html">
 <meta property="og:site_name" content="小马哥的博客">
+<meta property="og:description" content="步骤包安装 express安装npm install express --save express 脚手架生成器安装npm install express-generator --save-dev作用：搭建一个网站应该有的框架 使用express-generator在当前目录下生成应用因为express-generator是安装在本地的，所以不能直接使用express生成，需要找到express-">
 <meta property="og:locale" content="zh">
+<meta property="og:updated_time" content="2017-09-18T00:46:58.692Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="小马哥的博客">
+<meta name="twitter:title" content="在线便利贴项目记录">
+<meta name="twitter:description" content="步骤包安装 express安装npm install express --save express 脚手架生成器安装npm install express-generator --save-dev作用：搭建一个网站应该有的框架 使用express-generator在当前目录下生成应用因为express-generator是安装在本地的，所以不能直接使用express生成，需要找到express-">
   
     <link rel="alternative" href="/atom.xml" title="小马哥的博客" type="application/atom+xml">
   
@@ -150,71 +155,212 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-在线便利贴项目记录" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/09/06/Web前端整理/" class="archive-article-date">
-  	<time datetime="2017-09-06T08:24:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-06</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/09/06/Web前端整理/">Web前端面试提问</a>
+    <h1 class="article-title" itemprop="name">
+      在线便利贴项目记录
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2017/09/16/在线便利贴项目记录/" class="archive-article-date">
+  	<time datetime="2017-09-16T07:59:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-16</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><h3 id="包安装"><a href="#包安装" class="headerlink" title="包安装"></a>包安装</h3><ul>
+<li>express安装<br><code>npm install express --save</code></li>
+<li>express 脚手架生成器安装<br><code>npm install express-generator --save-dev</code><br>作用：搭建一个网站应该有的框架</li>
+<li>使用<code>express-generator</code>在当前目录下生成应用<br>因为<code>express-generator</code>是安装在本地的，所以不能直接使用express生成，需要找到<code>express-generator</code>的安装目录下bin文件夹中的.js文件执行<br>可以通过<code>./node_modules/express-generator/bin/express-cli.js -h</code>查看该命令支持的参数，<br>执行命令：<code>./node_modules/express-generator/bin/express-cli.js . -f -e</code><br>解释：”.”： 表示在当前目录生成应用<pre><code>&quot;-f&quot;：强制在非空的文件夹下执行命令
+</code></pre>  “-e”：使用ejs引擎</li>
+</ul>
+<p><strong>注意</strong>：包一般安装在本地</p>
+<h3 id="运行express的测试代码"><a href="#运行express的测试代码" class="headerlink" title="运行express的测试代码"></a>运行express的测试代码</h3><h3 id="新建项目文件及文件夹"><a href="#新建项目文件及文件夹" class="headerlink" title="新建项目文件及文件夹"></a>新建项目文件及文件夹</h3><p>文件目录如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">express-sticky-note</div><div class="line">  bin</div><div class="line">    www</div><div class="line">  public      // 发布上线的文件，也就是将src文件夹下的文件压缩打包后输出到该文件夹下</div><div class="line">    css</div><div class="line">    js</div><div class="line">    imgs</div><div class="line">    fonts</div><div class="line">  routes</div><div class="line">  src         // 前端源文件</div><div class="line">    imgs</div><div class="line">    js</div><div class="line">    scss</div><div class="line">    webpack.config.js   // webpack的配置文件，因为在该项目中，只在前端用到了webpack，所以将该文件放在src文件夹下，如果是后端也使用到了，那么就可以将其放在主目录下</div><div class="line">  views</div><div class="line">    error.ejs</div><div class="line">    index.ejs</div><div class="line">  app.js</div><div class="line">  package.json</div></pre></td></tr></table></figure></p>
+<h3 id="配置工程化"><a href="#配置工程化" class="headerlink" title="配置工程化"></a>配置工程化</h3><p><strong>对webpack进行配置</strong></p>
+<p><strong>重要：</strong>在配置之前，先要明确需要的功能，然后再编写几个简单的文件对环境进行测试，确保配置没有错误后，再进行正式代码的编写</p>
+<ul>
+<li><p>测试webpack模块化功能配置<br>在mod文件夹下定义两个文件a.js和b.js，在b.js中引用a.js，然后在app的index.js中引入b.js，然后打印b.js中的内容，最后使用webpack打包输出到public/js文件夹下，代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">// a.js</div><div class="line">&apos;use strict&apos;;</div><div class="line">// module.exports 导出的是一个对象</div><div class="line">module.exports.a = &apos;我是aaabbbbccc&apos;;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">// b.js</div><div class="line"> &apos;use strict&apos;;</div><div class="line"> var a = require(&apos;./a.js&apos;).a;</div><div class="line"> module.exports = &#123;</div><div class="line">   b: &apos;bbb&apos;,</div><div class="line">   a: a</div><div class="line"> &#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">// index.js</div><div class="line">&apos;use strict&apos;;</div><div class="line">var obj = require(&apos;../mod/b.js&apos;);</div><div class="line">console.log(obj);</div></pre></td></tr></table></figure>
+<p>webpack.config.js中的内容如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">var webpack = require(&apos;webpack&apos;);</div><div class="line">var path = require(&apos;path&apos;);</div><div class="line"></div><div class="line">module.exports = &#123;</div><div class="line">  // 文件入口</div><div class="line">  entry: path.join(__dirname, &quot;js/app/index.js&quot;),</div><div class="line">  // 打包文件输出路径</div><div class="line">  output: &#123;</div><div class="line">    path: path.join(__dirname, &quot;../public/js&quot;),</div><div class="line">    filename: &quot;index.js&quot;</div><div class="line">  &#125;,</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+</li>
+<li><p>实现文件更新后自动打包输出<br>通过<code>onchange</code>模块来对文件进行监控，然后执行响应的npm命令<br>安装<code>onchang</code>: <code>npm install onchange --save-dev</code><br>通过<code>npm scripts</code>实现命令，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&quot;scripts&quot;: &#123;</div><div class="line">  &quot;start&quot;: &quot;PORT=8080 node ./bin/www&quot;,</div><div class="line">  &quot;webpack&quot;: &quot;webpack --config=src/webpack.config.js&quot;,</div><div class="line">  &quot;watch&quot;: &quot;onchange \&quot;src/**/*.js\&quot; \&quot;src/**/*.scss\&quot; -- npm run webpack&quot;</div><div class="line">&#125;,</div></pre></td></tr></table></figure>
+<p>只需要执行<code>npm run watch</code> 就会对文件进行监控然后执行打包命令<br><strong>注意：</strong> 在windows下 <code>&quot;onchange \&quot;src/**/*.js\&quot; \&quot;src/**/*.scss\&quot; -</code> 文件的路径需要使用双引号，并且通过”\”反斜杠进行转义</p>
+<h2 id="Express"><a href="#Express" class="headerlink" title="Express"></a>Express</h2><h3 id="什么是Express"><a href="#什么是Express" class="headerlink" title="什么是Express"></a>什么是Express</h3><p>高度包容、快速而极简的Node.js Web框架</p>
+</li>
+</ul>
+<h3 id="Express的特点"><a href="#Express的特点" class="headerlink" title="Express的特点"></a>Express的特点</h3><h3 id="Express的用法"><a href="#Express的用法" class="headerlink" title="Express的用法"></a>Express的用法</h3><p>Express中最重要的三部分：<strong>中间件</strong>、<strong>路由</strong>和 <strong>中间件</strong></p>
+<h4 id="中间件-Middleware"><a href="#中间件-Middleware" class="headerlink" title="中间件(Middleware)"></a>中间件(Middleware)</h4><h4 id="路由"><a href="#路由" class="headerlink" title="路由"></a>路由</h4><h4 id="模板引擎"><a href="#模板引擎" class="headerlink" title="模板引擎"></a>模板引擎</h4><h4 id="静态资源"><a href="#静态资源" class="headerlink" title="静态资源"></a>静态资源</h4><p>通过<code>app.use(express.static(path.join(__dirname, &#39;public&#39;)));</code>对静态资源进行拦截处理，也就是说当请求的是静态资源，则直接到当前目录下的public文件夹中去查找数据</p>
+<p><strong>注意</strong>：</p>
+<ul>
+<li>使用<code>PORT=8000 node ./bin/www</code> 来启动服务器时，不能指定端口为80，因为80端口一般是给管理员来使用的，需要使用sudo来运行该命令，这主要是针对linux服务器<br><strong>参考</strong><ul>
+<li><a href="http://expressjs.com/zh-cn/" target="_blank" rel="external">官方文档</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="一些知识点"><a href="#一些知识点" class="headerlink" title="一些知识点"></a>一些知识点</h2><ul>
+<li><p>控制路由的跳转的就是MVC中的Controller；与数据库交互，向外界提供比较友好的数据接口就是Model；面向用户的展示就是View(试图)</p>
+</li>
+<li><p>项目开发中文件的结构划分方式：<strong>按应用划分</strong> 和 <strong>按功能划分</strong><br>按应用划分：例如一个网站中，有多个页面，那么可以将多个页面的js文件放到app的文件夹中，这就是按应用划分<br>按功能划分：将引用的库放在lib文件夹中，模块放在mod文件夹中，这就是按功能划分，也就是根据代码功能的不同，将其划分到不同的文件夹中<br>参考：<a href="https://segmentfault.com/a/1190000010384268" target="_blank" rel="external">文件的划分方式</a></p>
+</li>
+</ul>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Web</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">个人项目</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Web/" class="article-tag-list-link color4">Web</a>
-        		</li>
-      		
-		</ul>
-	</div>
+      
 
+      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=https://shaunzh.github.io/2017/09/16/在线便利贴项目记录/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2017/09/18/WebSocket学习/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          WebSocket学习
+        
+      </div>
+    </a>
   
   
-    </div></section>
+    <a href="/2017/09/14/ES6/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">ES6</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
 
 
           </div>
@@ -237,10 +383,10 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
-		isCategory: true,
+		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
 		root: "/",
