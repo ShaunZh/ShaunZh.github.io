@@ -152,6 +152,316 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Vue中使用Mixins" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/09/26/Vue中使用Mixins/">Vue中使用Mixins</a>
+    </h1>
+  
+
+        
+        <a href="/2017/09/26/Vue中使用Mixins/" class="archive-article-date">
+  	<time datetime="2017-09-26T08:45:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-26</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>假设现在有这么一种情况：有两个组件，它们有很多相似之处，有相同的逻辑，同时，它们也有很多不同的点，那么是将其分割开来作为两个组件？还是作为一个组件，然后通过<code>props</code>来进行功能实现？</p>
+<p>不管选择哪种方案，都不是很完美。如果分为两个组件，那么当进行功能调整时，有可能每个组件都需要调整，增加工作量；如果合为一个组件，那么内部的逻辑会变得复杂， 不利于维护</p>
+<p><strong>Mixins</strong> 是Vue中一个很有用的功能，可以让我们编写类似于函数式编程风格的代码。<strong>Mixins</strong>允许我们 <strong>封装函数功能</strong>，以便在很多不同的组件中可以使用。如果采用正确的方式编写，它们将会是 <strong>纯函数</strong>——也就是说，它们不会更改功能范围之外的内容。</p>
+<p>更加通俗的理解就是：<strong>使用Mixins，可以将组件中公共的部分抽离出来，然后在需要使用的时候进行导入，可以精简代码，同时逻辑清晰</strong></p>
+<h2 id="Basic-example"><a href="#Basic-example" class="headerlink" title="Basic example"></a>Basic example</h2><p>现在有两个组件——<em>modal</em>和 <em>tooltip</em>，它们的主要功能是切换一个boolean类型的state，然后进行相应的显示，除了逻辑相似之外就没有什么相同点了</p>
+<p><strong>modal 组件</strong><br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> Modal = &#123;</div><div class="line">    template: <span class="string">"#modal"</span>,</div><div class="line">    data() &#123;</div><div class="line">        <span class="keyword">return</span> &#123;</div><div class="line">            isShowing: <span class="literal">false</span></div><div class="line">        &#125;</div><div class="line">    &#125;,</div><div class="line">    methods: &#123;</div><div class="line">        toggleShow() &#123;</div><div class="line">            <span class="keyword">this</span>.isShowing = !<span class="keyword">this</span>.isShowing;</div><div class="line">        &#125;</div><div class="line">    &#125;,</div><div class="line">    components: &#123;</div><div class="line">        appChild: Child</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><strong>tooltip 组件</strong><br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> tooltip = &#123;</div><div class="line">    template: <span class="string">"#tooltip"</span>,</div><div class="line">    data() &#123;</div><div class="line">        <span class="keyword">return</span> &#123;</div><div class="line">            isShowing: <span class="literal">false</span></div><div class="line">        &#125;</div><div class="line">    &#125;,</div><div class="line">    methods: &#123;</div><div class="line">        toggleShow() &#123;</div><div class="line">            <span class="keyword">this</span>.isShowing = !<span class="keyword">this</span>.isShowing;</div><div class="line">        &#125;</div><div class="line">    &#125;,</div><div class="line">    components: &#123;</div><div class="line">        appChild: Child</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>提取上面两个组件中的相同逻辑：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> toggle = &#123;</div><div class="line">    data() &#123;</div><div class="line">        <span class="keyword">return</span> &#123;</div><div class="line">            isShowing: <span class="literal">false</span></div><div class="line">        &#125;</div><div class="line">    &#125;,</div><div class="line">    methods: &#123;</div><div class="line">        toggleShow() &#123;</div><div class="line">            <span class="keyword">this</span>.isShowing = !<span class="keyword">this</span>.isShowing;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="comment">// Modal 组件</span></div><div class="line"><span class="keyword">const</span> Modal = &#123;</div><div class="line">    template: <span class="string">"#modal"</span>,</div><div class="line">    <span class="comment">// 使用混合</span></div><div class="line">    mixins: [toggle],</div><div class="line">    components: &#123;</div><div class="line">        appChild；Child</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="comment">// Tooltip组件</span></div><div class="line"><span class="keyword">const</span> Tooltip = &#123;</div><div class="line">    template: <span class="string">"#tooltip"</span>,</div><div class="line">    <span class="comment">// 使用混合</span></div><div class="line">    mixins: [toggle],</div><div class="line">    components: &#123;</div><div class="line">        appChild: Child</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>以上便是使用混合提取出相同的逻辑，然后在各个组件中使用的示例</p>
+<p>完整例子代码查看: <a href="https://codepen.io/sdras/pen/101a5d737b31591e5801c60b666013db/" target="_blank" rel="external">这里</a></p>
+<h2 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h2><p>在实际应用中，可以创建一个 <strong>mixins</strong> 的文件夹用于存放mixins对象，如下所示：<br><img src="https://res.cloudinary.com/css-tricks/image/upload/c_scale,w_1000,f_auto,q_auto/v1496725448/toggle_ma4im5.jpg" alt="Vue mixins的文件结构"></p>
+<p>在Modal.vue中，我们可以import mixins对象来使用它，代码如下：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> Child <span class="keyword">from</span> <span class="string">'./Child'</span></div><div class="line"><span class="keyword">import</span> &#123; toggle &#125; <span class="keyword">from</span> <span class="string">'./mixins/toggle'</span></div><div class="line"></div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</div><div class="line">    name: <span class="string">'modal'</span>,</div><div class="line">    mixins: [toggle],</div><div class="line">    components: &#123;</div><div class="line">        appChild: Child</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>有一点很重要：虽然mixins是一个对象，但是在里面我们仍然可以使用Vue组件的的钩子函数，例如：<code>mounted</code>, <code>created</code>。。。</p>
+<h2 id="合并"><a href="#合并" class="headerlink" title="合并"></a>合并</h2><p>分为两种情况考虑：组件和对象的同名选项不的值 <strong>是对象</strong> 和 <strong>是对象</strong></p>
+<h3 id="不是对象时"><a href="#不是对象时" class="headerlink" title="不是对象时"></a>不是对象时</h3><p><strong>如果同名选项的值不是对象，则混合为一个数组，依次调用</strong></p>
+<p>当在组件中使用mixins对象，同时，组件中和mixins对象中有同名的钩子函数，这时同名的函数会被 <strong>混合为一个数组</strong>，在进行调用时，它们都会被调用，但是存在一个 <strong>调用顺序</strong>的问题：<strong>mixins对象上的钩子函数会比对象自身的钩子函数先调用</strong>：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> mixin = &#123;</div><div class="line">    created: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(<span class="string">'混合对象的钩子被调用'</span>)</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">new</span> Vue(&#123;</div><div class="line">    mixins: [mixin],</div><div class="line">    created: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(<span class="string">'组件钩子被调用'</span>)</div><div class="line">    &#125;</div><div class="line">&#125;)</div><div class="line"></div><div class="line"><span class="comment">// =&gt; "混合对象的钩子被调用"</span></div><div class="line"><span class="comment">// =&gt; "组件钩子被调用"</span></div></pre></td></tr></table></figure></p>
+<h3 id="是对象"><a href="#是对象" class="headerlink" title="是对象"></a>是对象</h3><p><strong>如果同名选项的值是对象，则混合为同一个对象，当其中两个对象键名冲突时，取组件对象的<code>键值对</code></strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">var mixin = &#123;</div><div class="line">    methods: &#123;</div><div class="line">        foo: function() &#123;</div><div class="line">            console.log(&apos;foo&apos;)</div><div class="line">        &#125;,</div><div class="line">        conflicting: function() &#123;</div><div class="line">            console.log(&apos;from mixin&apos;)</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">var vm = new Vue(&#123;</div><div class="line">    mixins: [mixin],</div><div class="line">    methods: &#123;</div><div class="line">        foo: function() &#123;</div><div class="line">            console.log(&apos;from self foo&apos;)</div><div class="line">        &#125;,</div><div class="line">        bar: function() &#123;</div><div class="line">            console.log(&apos;bar&apos;)</div><div class="line">        &#125;,</div><div class="line">        conflicting: function() &#123;</div><div class="line">            console.log(&apos;from self&apos;)</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;)</div><div class="line"> </div><div class="line">vm.foo()  // =&gt; &apos;from self foo&apos;</div><div class="line">vm.bar()  // =&gt; bar</div><div class="line">vm.conflicting()  // =&gt; &apos;from self&apos;</div></pre></td></tr></table></figure>
+<p>如上，<code>vm.foo()</code>调用的是组件对象自身的foo</p>
+<h2 id="全局混合"><a href="#全局混合" class="headerlink" title="全局混合"></a>全局混合</h2><p>全局混合不推荐使用，具体查看参考部分的官方教程</p>
+<h2 id="自定义选项合并策略"><a href="#自定义选项合并策略" class="headerlink" title="自定义选项合并策略"></a>自定义选项合并策略</h2><p>查看官方教程了解</p>
+<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>混合可以让我们封装一些小的功能模块用于重复利用，当然，高阶组件也可以实现，具体使用哪种方式，根据实际情况进行考虑，避免滥用</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考:"></a>参考:</h2><ul>
+<li><a href="https://css-tricks.com/using-mixins-vue-js/" target="_blank" rel="external">Using Mixins in Vue.js</a></li>
+<li><a href="https://cn.vuejs.org/v2/guide/mixins.html" target="_blank" rel="external">Vue 混合</a></li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Vue</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/09/26/Vue中使用Mixins/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Vue组件通信" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/09/25/Vue组件通信/">Vue组件通信</a>
+    </h1>
+  
+
+        
+        <a href="/2017/09/25/Vue组件通信/" class="archive-article-date">
+  	<time datetime="2017-09-25T15:01:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-25</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Vue组件通信大致可以分为三种情况：<strong>父→子通信</strong>、<strong>子→父通信</strong>和 <strong>非父子组件通信</strong></p>
+<h2 id="父子通信"><a href="#父子通信" class="headerlink" title="父子通信"></a>父子通信</h2><p><strong>父组件通过props传递数据到子组件</strong><br>代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Vue.component(&apos;child&apos;, &#123;</div><div class="line">  template: &apos;&lt;p&gt;&#123;&#123; message &#125;&#125;&lt;/p&gt;&apos;,</div><div class="line">  props: [&apos;message&apos;]</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>父组件中使用子组件，通过props输数据到子组件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;child message=&quot;hello&quot;&gt;&lt;/child&gt;</div></pre></td></tr></table></figure></p>
+<h2 id="子组件向父组件传递数据"><a href="#子组件向父组件传递数据" class="headerlink" title="子组件向父组件传递数据"></a>子组件向父组件传递数据</h2><p><strong>通过<code>v-on</code>绑定自定义事件来实现</strong>，每个Vue实例都实现了 <strong>事件接口</strong>，即：</p>
+<ul>
+<li>使用<code>$on(eventName)</code>监听事件</li>
+<li>使用<code>$emit(eventName)</code>触发事件</li>
+</ul>
+<p>父组件可以在使用子组件的地方直接使用<code>v-on</code>来监听子组件触发的事件，<strong>不能使用<code>$on</code>监听子组件触发的事件</strong></p>
+<p>例子如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">子组件</div><div class="line">Vue.component(&apos;button-counter&apos;, &#123;</div><div class="line">  template: &apos;&lt;button @click=&quot;incrementCounter&quot;&gt;&#123;&#123; counter &#125;&#125;&lt;/button&gt;&apos;,</div><div class="line">  data: function() &#123;</div><div class="line">    return &#123;</div><div class="line">        counter: 0</div><div class="line">    &#125;</div><div class="line">  &#125;,</div><div class="line">  methods: &#123;</div><div class="line">    incrementCounter: function() &#123;</div><div class="line">        this.counter += 1;</div><div class="line">        // 触发 &apos;increment&apos; 事件</div><div class="line">        this.$emit(&apos;increment&apos;);</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;);</div><div class="line"></div><div class="line">new Vue(&#123;</div><div class="line">    el: &quot;#counter-event-example&quot;,</div><div class="line">    data: &#123;</div><div class="line">        total: 0</div><div class="line">    &#125;,</div><div class="line">    methods: &#123;</div><div class="line">        incrementTotal: function() &#123;</div><div class="line">            this.total += 1;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;)</div><div class="line"></div><div class="line">// 父组件</div><div class="line">&lt;div id=&quot;counter-event-example&quot;&gt;</div><div class="line">    &lt;p&gt; &#123;&#123; total &#125;&#125;&lt;/p&gt;</div><div class="line">    // 在父组件中通过 v-on 监听increment事件，当事件触发后，调用incrementTotal方法</div><div class="line">    &lt;button-counter v-on:increment=&quot;incrementTotal&quot;&gt;&lt;/button-counter&gt;</div><div class="line">    &lt;button-counter v-on:increment=&quot;incrementTotal&quot;&gt;&lt;/button-counter&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure>
+<p>上面代码实现的流程：子组件要往父组件 <strong>主动</strong>传递消息，那么必须在子组件中调用<code>$emit(eventName)</code>触发事件，然后在父组件上通过<code>v-on:eventName</code>监听事件，当父组件监听到数据后调用相应的方法响应子组件，这样便实现了子组件向父组件传递消息</p>
+<p>参考: <a href="https://cn.vuejs.org/v2/guide/components.html#使用-v-on-绑定自定义事件" target="_blank" rel="external">使用v-on绑定自定义事件</a></p>
+<h2 id="非父子组件通信"><a href="#非父子组件通信" class="headerlink" title="非父子组件通信"></a>非父子组件通信</h2><p><strong>原理</strong>：通过定义一个公共的Vue实例，然后在该实例上绑定事件即可<br>代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div></pre></td><td class="code"><pre><div class="line">// 全局Vue实例，通过在该实例上绑定事件，</div><div class="line">var box = new Vue();</div><div class="line"></div><div class="line">// 子组件1</div><div class="line">var childOne = &#123;</div><div class="line">    name: &apos;childOne&apos;,</div><div class="line">    props: [&apos;childMsg&apos;],</div><div class="line">    template: &apos;&lt;div v-text=&quot;childMsg&apos; @click=&quot;commit&quot; class=&quot;msg1&quot;&gt;&lt;/div&gt;&apos;,</div><div class="line">    data: function() &#123;</div><div class="line">        return &#123;</div><div class="line">            msg: &quot;component1&quot;</div><div class="line">        &#125;</div><div class="line">    &#125;,</div><div class="line">    methods: &#123;</div><div class="line">        commit: function() &#123;</div><div class="line">            // 触发 &apos;oneToTwo&apos; 事件，并传递一个对象数据，childTwo订阅了该事件，因此会接收到</div><div class="line">            box.$emit(&apos;oneToTwo&apos;, &#123;</div><div class="line">                msg: &apos;i am component1&apos;</div><div class="line">            &#125;);</div><div class="line">        &#125;</div><div class="line">    &#125;,</div><div class="line">    // 组件被挂载就定于twoToOne事件</div><div class="line">    mounted() &#123;</div><div class="line">        // 订阅 &apos;twoToOne&apos; 事件，当twoToOne事件触发时，调用回调函数，twoToOne的触发事件会传递一个参数过来，将其存放在data中</div><div class="line">        box.$on(&apos;twoToOne&apos;, (data) =&gt; &#123;</div><div class="line">            this.msg = data.msg</div><div class="line">         &#125;)</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">// 子组件2</div><div class="line">var childTwo = &#123;</div><div class="line">    name: &apos;childTwo&apos;,</div><div class="line">    props: [&apos;childMsg&apos;],</div><div class="line">    template: &apos;&lt;div v-text=&quot;msg&quot; @click=&quot;btnClick&quot; class=&quot;msg2&quot;&gt;&lt;/div&gt;&apos;,</div><div class="line">    data: function() &#123;</div><div class="line">        return &#123;</div><div class="line">            msg: &apos;component2&apos;</div><div class="line">        &#125;</div><div class="line">    &#125;,</div><div class="line">    mounted() &#123;</div><div class="line">        bus.$on(&apos;oneToTwo&apos;, (data) =&gt; &#123;</div><div class="line">            this.msg = data.msg;</div><div class="line">        &#125;)</div><div class="line">    &#125;,</div><div class="line">    methods: &#123;</div><div class="line">        btnClick: function() &#123;</div><div class="line">            this.$emit(&apos;twoToOne&apos;);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Vue</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/09/25/Vue组件通信/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Vue组件" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/09/25/Vue组件/">Vue组件</a>
+    </h1>
+  
+
+        
+        <a href="/2017/09/25/Vue组件/" class="archive-article-date">
+  	<time datetime="2017-09-25T08:24:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-25</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/09/25/Vue组件/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Webpack配置初探" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/09/25/Webpack配置初探/">Webpack配置初探</a>
+    </h1>
+  
+
+        
+        <a href="/2017/09/25/Webpack配置初探/" class="archive-article-date">
+  	<time datetime="2017-09-25T08:23:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-25</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/09/25/Webpack配置初探/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-浏览器兼容性问题总结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -736,400 +1046,6 @@
 
 
   
-    <article id="post-leetcode1-10" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/10/leetcode1-10/">leetcode1-10</a>
-    </h1>
-  
-
-        
-        <a href="/2017/09/10/leetcode1-10/" class="archive-article-date">
-  	<time datetime="2017-09-10T09:30:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="two-sum"><a href="#two-sum" class="headerlink" title="two sum"></a>two sum</h2><p><strong>description</strong>:<br>Given an array of integers, return indices of the two numbers such that they add up to a specific target.</p>
-<p>You may assume that each input would have exactly one solution, and you may not use the same element twice.<br><strong>example</strong>:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Given nums = [2, 7, 11, 15], target = 9,</div><div class="line"></div><div class="line">Because nums[0] + nums[1] = 2 + 7 = 9,</div><div class="line">return [0, 1]</div></pre></td></tr></table></figure></p>
-<p><strong>my solution</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * @param &#123;number[]&#125; nums</div><div class="line"> * @param &#123;number&#125; target</div><div class="line"> * @return &#123;number[]&#125;</div><div class="line"> */</div><div class="line">function sort(nums) &#123;</div><div class="line">    let newArr = nums.concat();</div><div class="line">    for(let i = 1, len = nums.length; i &lt; len; i++) &#123;</div><div class="line">        let temp = newArr[i];</div><div class="line">        for (let j = i; j &gt;=0; j--) &#123;</div><div class="line">            if (newArr[j - 1] &gt; temp) &#123;</div><div class="line">                newArr[j] = newArr[j - 1];</div><div class="line">            &#125; else &#123;</div><div class="line">                newArr[j] = temp;</div><div class="line">                break;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;    </div><div class="line">    return newArr;</div><div class="line">&#125;</div><div class="line">var twoSum = function(nums, target) &#123;</div><div class="line">    let newArr = sort(nums);</div><div class="line">    let result = [];</div><div class="line">    let index = function() &#123;</div><div class="line">        for (let i = 0, len = newArr.length; i &lt; len; i++) &#123;</div><div class="line">            if (newArr[i] &gt;= target) &#123;</div><div class="line">                return i;</div><div class="line">            &#125;  </div><div class="line">        &#125;</div><div class="line">        return newArr.length;</div><div class="line">    &#125;();</div><div class="line">    for (let i = 0, len = index; i &lt;= len; i++) &#123;</div><div class="line">        let temp = newArr[i];</div><div class="line">        let goal = target - temp;</div><div class="line">        for (let j = i + 1; j &lt;= index; j++) &#123;</div><div class="line">            if (newArr[j] === goal) &#123;</div><div class="line">                result[0] = nums.indexOf(temp);</div><div class="line">                result[1] = nums.indexOf(goal);</div><div class="line">                return result;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    return result;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
-<p><strong>recommend solution</strong><br>方法1：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">var twoSum = function(nums, target) &#123;</div><div class="line">    let len = nums.length;</div><div class="line">    for (let i = 0; i &lt; len; i++) &#123;</div><div class="line">        for (let j = i + 1; j &lt; len; j++) &#123;</div><div class="line">            if (nums[j] === (target - nums[i])) &#123;</div><div class="line">                return [i, j];</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/09/10/leetcode1-10/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-callee和caller用法和区别" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/10/callee和caller用法和区别/">callee和caller用法和区别</a>
-    </h1>
-  
-
-        
-        <a href="/2017/09/10/callee和caller用法和区别/" class="archive-article-date">
-  	<time datetime="2017-09-10T03:04:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>从字面上看，<code>callee</code>的意思是<em>被调用者</em>， <code>caller</code>的意思是<em>调用者</em>；<br>在JavaScript MDN上可以看到比较官方的解释：</p>
-<ul>
-<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/arguments/callee" target="_blank" rel="external">callee</a>: 指向当前被调用的函数</li>
-<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/arguments/caller" target="_blank" rel="external">caller</a>: 指向调用当前函数的函数</li>
-</ul>
-<h2 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">var readBook = function()&#123;</div><div class="line">    console.log(arguments.callee);//这里返回的是readBook函数</div><div class="line">    console.log(arguments.caller);//这里返回的应该是go函数，注意是“应该”</div><div class="line">&#125;;</div><div class="line">var go = function()&#123;</div><div class="line">    readBook();</div><div class="line">&#125;;</div><div class="line">go();</div></pre></td></tr></table></figure>
-<p>然而运行一下这串代码就会发现，callee确实是返回正在执行的参数readBook，而caller返回的是undefined。</p>
-<p>在<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/arguments/caller" target="_blank" rel="external">caller的官方文档中</a>可以发现，<code>arguments.caller</code>已经不被推荐，但是可以仍然可以通过<code>Function.caller</code>访问，</p>
-<p>如:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">function whoCalled() &#123;</div><div class="line">   if (whoCalled.caller == null)</div><div class="line">      console.log(&apos;I was called from the global scope.&apos;);</div><div class="line">   else</div><div class="line">      console.log(whoCalled.caller + &apos; called me!&apos;);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><p>值得注意的是，在 <strong>严格模式</strong>下，使用<code>arguments.callee</code>和<code>Function.caller</code>时浏览器都会抛出错误，还有在 <strong>严格模式</strong>下，假如给caller属性赋值的话，同样也会抛出错误。</p>
-<h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><p>在实现递归的时候，可以达到解耦的作用，我们可以不必理会函数名是什么。例如下面的阶乘函数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">function factorial(number)&#123;</div><div class="line">  if(number &lt;= 1)&#123;</div><div class="line">    return 1;</div><div class="line">  &#125;else&#123;</div><div class="line">    return number*arguments.callee(number-1);</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">factorial(100);</div></pre></td></tr></table></figure></p>
-<h2 id="兼容性"><a href="#兼容性" class="headerlink" title="兼容性"></a>兼容性</h2><p>几乎所有浏览器都支持 <strong>callee</strong>属性，而对于 <strong>caller</strong>则并基本上不支持，尽量不要使用。</p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/arguments/caller" target="_blank" rel="external">caller</a><br><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/arguments/callee" target="_blank" rel="external">callee</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Javascript</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/09/10/callee和caller用法和区别/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-性能优化" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/09/性能优化/">SEO的一些介绍</a>
-    </h1>
-  
-
-        
-        <a href="/2017/09/09/性能优化/" class="archive-article-date">
-  	<time datetime="2017-09-09T07:27:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-09</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="谈谈以前端角度出发做好SEO需要考虑什么？"><a href="#谈谈以前端角度出发做好SEO需要考虑什么？" class="headerlink" title="谈谈以前端角度出发做好SEO需要考虑什么？"></a>谈谈以前端角度出发做好SEO需要考虑什么？</h2><ul>
-<li>了解搜索引擎是如何抓取网页和索引网页</li>
-<li>Meta标签的优化<br>主要包括：主题(title), 网站描述(Description), 和关键字(keywords)</li>
-<li>合理使用标签</li>
-<li>如何选取关键词，并在网页中放置关键字<br>搜索就得用关键词。关键词分析和选择是SEO最重要的工作之一。首先要给网站确定主关键词（一般在5个上下），然后针对这些关键词进行优化，包括关键词密度（Density），相关度（Relavancy），突出性（Prominency）等等。</li>
-<li>了解主要的搜索引擎</li>
-</ul>
-<h2 id="前端的性能优化"><a href="#前端的性能优化" class="headerlink" title="前端的性能优化"></a>前端的性能优化</h2><p><strong>前端优化</strong></p>
-<ul>
-<li>文件压缩，减小文件大小</li>
-<li>文件合并，减少http请求，同时可以利用缓存</li>
-<li>减少DOM操作，例如在需要遍历DOM时，需要用到DOM节点的长度，可以将其保存起来，而不是去实时查询</li>
-<li>使用事件代理绑定事件</li>
-<li>利用雪碧图</li>
-</ul>
-<p><strong>体验的优化</strong></p>
-<ul>
-<li>图片懒加载，分页</li>
-<li>功能懒加载（html和css先加载，js最后再加载）</li>
-</ul>
-<p><strong>后端优化：</strong></p>
-<ul>
-<li>服务器端开始gzip，那么服务端传输文件就是经过压缩的</li>
-<li>增加CDN</li>
-<li>添加多个静态资源服务器</li>
-<li>将资源放在多个域名下，提高并发</li>
-</ul>
-<h2 id="为什么利用多个域名来存储网站资源会更有效"><a href="#为什么利用多个域名来存储网站资源会更有效" class="headerlink" title="为什么利用多个域名来存储网站资源会更有效"></a>为什么利用多个域名来存储网站资源会更有效</h2><ul>
-<li>CDN缓存更方便</li>
-<li>突破浏览器的并发限制(浏览器的并发限制是基于domain来实现的，目前并发最大支持8个，也就是说同一个域名同一时间，最多发送8个请求，假设有16个资源要访问，那么必须分两次请求，其实这里面应该是当完成一个请求之后，再继续下一个请求，只是最大保持在线请求为8个，如果16个资源都放在一个domain下，那么最少两次请求，才能全部获取到资源，假设将16个资源放在两个域名下，那么就可以同时往两个域名下各发送一次请求，相当于时间减少了一半)</li>
-<li>节约cookie 带宽</li>
-<li>减少主域名的连接数，从而提高客户端网络带宽的利用率，优化页面响应</li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">性能优化</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/09/09/性能优化/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-HTML-CSS" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/09/HTML-CSS/">HTML&amp;CSS</a>
-    </h1>
-  
-
-        
-        <a href="/2017/09/09/HTML-CSS/" class="archive-article-date">
-  	<time datetime="2017-09-09T07:15:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-09</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="HTML-语义化"><a href="#HTML-语义化" class="headerlink" title="HTML 语义化"></a>HTML 语义化</h2><p>语义化的含义就是：<strong>让正确的标签做正确的事</strong><br><strong>为什么要语义化？</strong></p>
-<ul>
-<li>在CSS丢失或没有CSS时，页面仍然能够呈现较为清晰的结构</li>
-<li>有利于SEO，有助于爬虫抓取抓取更多有效信息，因为搜索引擎的爬虫也要依赖标签来确定上下文和各个关键字的权重</li>
-<li>方便其他设备的解析。向PAD、手机等设备对CSS的解析没有电脑那么强</li>
-<li>便于团队开发和维护</li>
-</ul>
-<h2 id="html5-新增了哪些新特性"><a href="#html5-新增了哪些新特性" class="headerlink" title="html5 新增了哪些新特性"></a>html5 新增了哪些新特性</h2><ul>
-<li>新的结构化标签，如：header、section、article、footer、nav等更加语义化的标签</li>
-<li>音视频标签：audio和video</li>
-<li>动画的支持：canvas</li>
-<li>新的表单控件：calendar、date、time、email、url</li>
-<li>离线存储：localStorage、sessionStorage</li>
-<li>新的跨域通信机制：window.postMessage</li>
-</ul>
-<h2 id="为什么利用多个域名来存储网站资源会更有效"><a href="#为什么利用多个域名来存储网站资源会更有效" class="headerlink" title="为什么利用多个域名来存储网站资源会更有效"></a>为什么利用多个域名来存储网站资源会更有效</h2><ul>
-<li>CDN 缓存更方便</li>
-<li>突破浏览器的并发限制</li>
-<li>节约主域名的连接数，优化页面响应</li>
-<li>节约cookie带宽</li>
-</ul>
-<h2 id="CSS-相关"><a href="#CSS-相关" class="headerlink" title="CSS 相关"></a>CSS 相关</h2><h3 id="CSS都有哪些选择器？"><a href="#CSS都有哪些选择器？" class="headerlink" title="CSS都有哪些选择器？"></a>CSS都有哪些选择器？</h3><ul>
-<li>基本选择器<ul>
-<li>元素选择器</li>
-<li>id选择器</li>
-<li>class选择器</li>
-<li>一些关系选择器，例如：&gt;(直接子元素), +(相邻兄弟选择器)，</li>
-</ul>
-</li>
-<li>属性选择器<br>例如：<code>E[attr], E[attr*=&quot;value&quot;], E[attr^=&quot;value&quot;], E[attr$=&quot;value&quot;]</code></li>
-<li>伪类选择器<br>例如：<code>&#39;:first-child&#39;, &#39;:last-child&#39;</code></li>
-<li>伪元素选择器<br>例如：<code>&#39;::before&#39;, &#39;::after&#39;, &#39;::first-letter&#39;</code></li>
-</ul>
-<p><strong>伪类和伪元素的区别</strong><br>其主要区别是：<em>有没有从创建一个文档树之外的元素</em>，如果创造了新的元素，则是伪元素，如果没有，则是伪类<br>例如：<code>:first-child</code>：其选择的是第一个子元素，说明没有创造新的元素，所以它是伪类，<br><code>::before</code>：在元素的前面添加一个新元素，它创建了新的元素，所以是伪元素<br>参考：<a href="http://www.alloyteam.com/2016/05/summary-of-pseudo-classes-and-pseudo-elements/" target="_blank" rel="external">伪元素和伪类</a></p>
-<p>###通过哪些CSS属性可以使一个元素不出现在浏览器可视范围内<br>基本方法：</p>
-<ul>
-<li><code>display: none</code></li>
-<li><code>visibility: hidden</code><br>技巧性的：</li>
-<li>设置宽高为0</li>
-<li>设置透明度为0：opacity</li>
-<li>设置<code>z-index: -1000em</code>，其实就是设置元素的层级关系为超级低</li>
-</ul>
-<p>###超链接访问过后hover样式就不出现的问题是什么？如何解决？<br>主要是对a链接的伪元素属性没有设置好，设置顺序为：<em>link，visited，hover，active</em></p>
-<h3 id="什么是Css-Hack？ie6-7-8的hack分别是什么？"><a href="#什么是Css-Hack？ie6-7-8的hack分别是什么？" class="headerlink" title="什么是Css Hack？ie6,7,8的hack分别是什么？"></a>什么是Css Hack？ie6,7,8的hack分别是什么？</h3><p>CSS Hack就是：<strong>针对不同的浏览器编写不同的CSS</strong></p>
-<p>最简单的区分ie6、ie7、ie8的CSS Hack，如下所示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">.color &#123;</div><div class="line">    background-color: #CC00FF;       // 所有浏览器都能识别</div><div class="line">    background-color: #FF0000\9;     // 只有IE6、 IE7、IE8能识别</div><div class="line">    *background-color: #0066FF;      // IE6、IE7能识别</div><div class="line">    +background-color: pink;         // 只有IE7能识别</div><div class="line">    _background-color: #009933;      // 只有IE6能识别</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h2 id="DIV-CSS-布局-与-table布局的优缺点"><a href="#DIV-CSS-布局-与-table布局的优缺点" class="headerlink" title="DIV + CSS 布局 与 table布局的优缺点"></a>DIV + CSS 布局 与 table布局的优缺点</h2><p>div + css 布局的优点</p>
-<ul>
-<li>符合W3C标准，结构、行为和样式的分离</li>
-<li>结构清晰，便于扩展</li>
-<li>有利于搜索引擎检索，利于SEO</li>
-</ul>
-<p>参考：<a href="https://stackoverflow.com/questions/83073/why-not-use-tables-for-layout-in-html" target="_blank" rel="external">为什么不使用table布局</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">面试相关</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/09/09/HTML-CSS/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -1224,15 +1140,7 @@
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">WEB</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">面试相关</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Web</a>
+                <a href="javascript:void(0)" class="js-tag color4">Vue</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1240,11 +1148,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+                <a href="javascript:void(0)" class="js-tag color4">WEB</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">性能优化</a>
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1252,7 +1160,19 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Web</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">性能优化</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">个人项目</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">面试相关</a>
               </li>
             
             <div class="clearfix"></div>
