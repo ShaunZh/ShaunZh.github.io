@@ -17,7 +17,7 @@
 <meta property="og:description" content="假设现在有这么一种情况：有两个组件，它们有很多相似之处，有相同的逻辑，同时，它们也有很多不同的点，那么是将其分割开来作为两个组件？还是作为一个组件，然后通过props来进行功能实现？ 不管选择哪种方案，都不是很完美。如果分为两个组件，那么当进行功能调整时，有可能每个组件都需要调整，增加工作量；如果合为一个组件，那么内部的逻辑会变得复杂， 不利于维护 Mixins 是Vue中一个很有用的功能，可以让">
 <meta property="og:locale" content="zh">
 <meta property="og:image" content="https://res.cloudinary.com/css-tricks/image/upload/c_scale,w_1000,f_auto,q_auto/v1496725448/toggle_ma4im5.jpg">
-<meta property="og:updated_time" content="2017-09-26T11:02:21.898Z">
+<meta property="og:updated_time" content="2017-09-27T00:55:49.940Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Vue中使用Mixins">
 <meta name="twitter:description" content="假设现在有这么一种情况：有两个组件，它们有很多相似之处，有相同的逻辑，同时，它们也有很多不同的点，那么是将其分割开来作为两个组件？还是作为一个组件，然后通过props来进行功能实现？ 不管选择哪种方案，都不是很完美。如果分为两个组件，那么当进行功能调整时，有可能每个组件都需要调整，增加工作量；如果合为一个组件，那么内部的逻辑会变得复杂， 不利于维护 Mixins 是Vue中一个很有用的功能，可以让">
@@ -190,11 +190,11 @@
 <h2 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h2><p>在实际应用中，可以创建一个 <strong>mixins</strong> 的文件夹用于存放mixins对象，如下所示：<br><img src="https://res.cloudinary.com/css-tricks/image/upload/c_scale,w_1000,f_auto,q_auto/v1496725448/toggle_ma4im5.jpg" alt="Vue mixins的文件结构"></p>
 <p>在Modal.vue中，我们可以import mixins对象来使用它，代码如下：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> Child <span class="keyword">from</span> <span class="string">'./Child'</span></div><div class="line"><span class="keyword">import</span> &#123; toggle &#125; <span class="keyword">from</span> <span class="string">'./mixins/toggle'</span></div><div class="line"></div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</div><div class="line">    name: <span class="string">'modal'</span>,</div><div class="line">    mixins: [toggle],</div><div class="line">    components: &#123;</div><div class="line">        appChild: Child</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>有一点很重要：虽然mixins是一个对象，但是在里面我们仍然可以使用Vue组件的的钩子函数，例如：<code>mounted</code>, <code>created</code>。。。</p>
-<h2 id="合并"><a href="#合并" class="headerlink" title="合并"></a>合并</h2><p>分为两种情况考虑：组件和对象的同名选项不的值 <strong>是对象</strong> 和 <strong>是对象</strong></p>
+<h2 id="合并"><a href="#合并" class="headerlink" title="合并"></a>合并</h2><p>分为两种情况考虑：组件和混合对象的同名选项下的值 <strong>不是对象</strong> 和 <strong>是对象</strong></p>
 <h3 id="不是对象时"><a href="#不是对象时" class="headerlink" title="不是对象时"></a>不是对象时</h3><p><strong>如果同名选项的值不是对象，则混合为一个数组，依次调用</strong></p>
 <p>当在组件中使用mixins对象，同时，组件中和mixins对象中有同名的钩子函数，这时同名的函数会被 <strong>混合为一个数组</strong>，在进行调用时，它们都会被调用，但是存在一个 <strong>调用顺序</strong>的问题：<strong>mixins对象上的钩子函数会比对象自身的钩子函数先调用</strong>：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> mixin = &#123;</div><div class="line">    created: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(<span class="string">'混合对象的钩子被调用'</span>)</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">new</span> Vue(&#123;</div><div class="line">    mixins: [mixin],</div><div class="line">    created: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(<span class="string">'组件钩子被调用'</span>)</div><div class="line">    &#125;</div><div class="line">&#125;)</div><div class="line"></div><div class="line"><span class="comment">// =&gt; "混合对象的钩子被调用"</span></div><div class="line"><span class="comment">// =&gt; "组件钩子被调用"</span></div></pre></td></tr></table></figure></p>
 <h3 id="是对象"><a href="#是对象" class="headerlink" title="是对象"></a>是对象</h3><p><strong>如果同名选项的值是对象，则混合为同一个对象，当其中两个对象键名冲突时，取组件对象的<code>键值对</code></strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">var mixin = &#123;</div><div class="line">    methods: &#123;</div><div class="line">        foo: function() &#123;</div><div class="line">            console.log(&apos;foo&apos;)</div><div class="line">        &#125;,</div><div class="line">        conflicting: function() &#123;</div><div class="line">            console.log(&apos;from mixin&apos;)</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">var vm = new Vue(&#123;</div><div class="line">    mixins: [mixin],</div><div class="line">    methods: &#123;</div><div class="line">        foo: function() &#123;</div><div class="line">            console.log(&apos;from self foo&apos;)</div><div class="line">        &#125;,</div><div class="line">        bar: function() &#123;</div><div class="line">            console.log(&apos;bar&apos;)</div><div class="line">        &#125;,</div><div class="line">        conflicting: function() &#123;</div><div class="line">            console.log(&apos;from self&apos;)</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;)</div><div class="line"> </div><div class="line">vm.foo()  // =&gt; &apos;from self foo&apos;</div><div class="line">vm.bar()  // =&gt; bar</div><div class="line">vm.conflicting()  // =&gt; &apos;from self&apos;</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> mixin = &#123;</div><div class="line">    methods: &#123;</div><div class="line">        foo: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">            <span class="built_in">console</span>.log(<span class="string">'foo'</span>)</div><div class="line">        &#125;,</div><div class="line">        conflicting: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">            <span class="built_in">console</span>.log(<span class="string">'from mixin'</span>)</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</div><div class="line">    mixins: [mixin],</div><div class="line">    methods: &#123;</div><div class="line">        foo: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">            <span class="built_in">console</span>.log(<span class="string">'from self foo'</span>)</div><div class="line">        &#125;,</div><div class="line">        bar: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">            <span class="built_in">console</span>.log(<span class="string">'bar'</span>)</div><div class="line">        &#125;,</div><div class="line">        conflicting: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">            <span class="built_in">console</span>.log(<span class="string">'from self'</span>)</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;)</div><div class="line"> </div><div class="line">vm.foo()  <span class="comment">// =&gt; 'from self foo'</span></div><div class="line">vm.bar()  <span class="comment">// =&gt; bar</span></div><div class="line">vm.conflicting()  <span class="comment">// =&gt; 'from self'</span></div></pre></td></tr></table></figure>
 <p>如上，<code>vm.foo()</code>调用的是组件对象自身的foo</p>
 <h2 id="全局混合"><a href="#全局混合" class="headerlink" title="全局混合"></a>全局混合</h2><p>全局混合不推荐使用，具体查看参考部分的官方教程</p>
 <h2 id="自定义选项合并策略"><a href="#自定义选项合并策略" class="headerlink" title="自定义选项合并策略"></a>自定义选项合并策略</h2><p>查看官方教程了解</p>
@@ -306,6 +306,15 @@
 
   
 <nav id="article-nav">
+  
+    <a href="/2017/09/27/Vue可复用性与组合/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          Vue可复用性&amp;组合
+        
+      </div>
+    </a>
   
   
     <a href="/2017/09/25/Vue组件通信/" id="article-nav-older" class="article-nav-link-wrap">
@@ -430,11 +439,15 @@
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Vue</a>
+                <a href="javascript:void(0)" class="js-tag color1">Vue-Router</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Javascript</a>
+                <a href="javascript:void(0)" class="js-tag color5">面试相关</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Vue</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -442,15 +455,15 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">leetcode</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Web</a>
+                <a href="javascript:void(0)" class="js-tag color1">Javascript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -459,10 +472,6 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">个人项目</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">面试相关</a>
               </li>
             
             <div class="clearfix"></div>

@@ -6,15 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://shaunzh.github.io">
-  <title>Archives | 小马哥的博客</title>
+  <title>Vue-Router-进阶 | 小马哥的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="小马哥的博客">
-<meta property="og:url" content="https://shaunzh.github.io/archives/page/2/index.html">
+  <meta name="description" content="导航钩子导航钩子主要作用就是可以让我们跟踪导航跳转的每一个步骤，可以类比于Vue组件的钩子函数。官方说明：Vue-Router提供的导航钩子主要用来 拦截导航，让它 完成或取消。 有多种方式可以在 路由导航发生时执行钩子：全局的、单个路由独享的，或者 组件级的。 导航的过程一个导航的发生，主要经过如下步骤：  Navigation triggered (导航触发) Call leave guard">
+<meta name="keywords" content="Vue-Router">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue-Router-进阶">
+<meta property="og:url" content="https://shaunzh.github.io/2017/09/27/Vue-Router-进阶/index.html">
 <meta property="og:site_name" content="小马哥的博客">
+<meta property="og:description" content="导航钩子导航钩子主要作用就是可以让我们跟踪导航跳转的每一个步骤，可以类比于Vue组件的钩子函数。官方说明：Vue-Router提供的导航钩子主要用来 拦截导航，让它 完成或取消。 有多种方式可以在 路由导航发生时执行钩子：全局的、单个路由独享的，或者 组件级的。 导航的过程一个导航的发生，主要经过如下步骤：  Navigation triggered (导航触发) Call leave guard">
 <meta property="og:locale" content="zh">
+<meta property="og:updated_time" content="2017-09-27T10:56:37.801Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="小马哥的博客">
+<meta name="twitter:title" content="Vue-Router-进阶">
+<meta name="twitter:description" content="导航钩子导航钩子主要作用就是可以让我们跟踪导航跳转的每一个步骤，可以类比于Vue组件的钩子函数。官方说明：Vue-Router提供的导航钩子主要用来 拦截导航，让它 完成或取消。 有多种方式可以在 路由导航发生时执行钩子：全局的、单个路由独享的，或者 组件级的。 导航的过程一个导航的发生，主要经过如下步骤：  Navigation triggered (导航触发) Call leave guard">
   
     <link rel="alternative" href="/atom.xml" title="小马哥的博客" type="application/atom+xml">
   
@@ -150,405 +155,206 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-Vue-Router-进阶" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Vue-Router-进阶
+    </h1>
+  
+
+        
+        <a href="/2017/09/27/Vue-Router-进阶/" class="archive-article-date">
+  	<time datetime="2017-09-27T09:40:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-27</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="导航钩子"><a href="#导航钩子" class="headerlink" title="导航钩子"></a>导航钩子</h2><p>导航钩子主要作用就是可以让我们跟踪导航跳转的每一个步骤，可以类比于Vue组件的钩子函数。<br>官方说明：<code>Vue-Router</code>提供的导航钩子主要用来 <strong>拦截导航</strong>，让它 <strong>完成或取消</strong>。 有多种方式可以在 <strong>路由导航发生时</strong>执行钩子：<strong>全局的</strong>、<strong>单个路由独享的</strong>，或者 <strong>组件级的</strong>。</p>
+<h3 id="导航的过程"><a href="#导航的过程" class="headerlink" title="导航的过程"></a>导航的过程</h3><p>一个导航的发生，主要经过如下步骤：</p>
+<ol>
+<li>Navigation triggered (导航触发)</li>
+<li>Call leave guards in deactive components (调用将要离开的路由组件上的<code>beforeRouteLeave</code>方法)</li>
+<li>Call global <strong>beforeEach</strong> guards (调用全局钩子：<code>beforeEach</code>)</li>
+<li>Call <strong>beforeRouteUpdate</strong> guards in reused components(2.2+) (如果跳转的是同一个组件上，也就是进行组件更新，那么就调用<code>beforeRouteUpdate</code>方法)</li>
+<li>Call <strong>beforeEnter</strong> in <strong>route config</strong> (调用将要进入的路由对象中的<code>beforeEnter</code>方法)</li>
+<li>Resolve async route components</li>
+<li>Call <strong>beforeRouteEnter</strong> in activated components</li>
+<li>Call global <strong>beforeResolve</strong> guards(2.5+)</li>
+<li>Navigation confirmed.</li>
+<li>Call global <strong>afterEach</strong> hooks.</li>
+<li>DOM updates triggered.</li>
+<li>Call callbacks passed to next in <strong>beforeRouteEnter</strong> guards with instantiated instances.</li>
+</ol>
+<h3 id="钩子类型"><a href="#钩子类型" class="headerlink" title="钩子类型"></a>钩子类型</h3><h4 id="全局钩子"><a href="#全局钩子" class="headerlink" title="全局钩子"></a>全局钩子</h4><ul>
+<li><strong>beforeEach()</strong></li>
+<li><strong>afterEach()</strong></li>
+<li><strong>beforeResolve()</strong><br>这些钩子函数是在 <code>router</code>对象上使用的</li>
+</ul>
+<h4 id="路由对象对象的钩子"><a href="#路由对象对象的钩子" class="headerlink" title="路由对象对象的钩子"></a>路由对象对象的钩子</h4><ul>
+<li><strong>beforeEnter()</strong><br>该钩子函数是在被定义的路由对象上使用的</li>
+</ul>
+<h4 id="组件内的钩子"><a href="#组件内的钩子" class="headerlink" title="组件内的钩子"></a>组件内的钩子</h4><p>也就是说你可以在Vue组件内使用的路由钩子</p>
+<ul>
+<li><strong>beforeRouteEnter()</strong></li>
+<li><strong>beforeRouteUpdate()</strong></li>
+<li><strong>beforeRouteLeave()</strong></li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> Foo = &#123;</div><div class="line">  template: <span class="string">`...`</span>,</div><div class="line">  beforeRouteEnter (to, <span class="keyword">from</span>, next) &#123;</div><div class="line">    <span class="comment">// 在渲染该组件的对应路由被 confirm 前调用</span></div><div class="line">    <span class="comment">// 不！能！获取组件实例 `this`</span></div><div class="line">    <span class="comment">// 因为当钩子执行前，组件实例还没被创建</span></div><div class="line">  &#125;,</div><div class="line">  beforeRouteUpdate (to, <span class="keyword">from</span>, next) &#123;</div><div class="line">    <span class="comment">// 在当前路由改变，但是该组件被复用时调用</span></div><div class="line">    <span class="comment">// 举例来说，对于一个带有动态参数的路径 /foo/:id，在 /foo/1 和 /foo/2 之间跳转的时候，</span></div><div class="line">    <span class="comment">// 由于会渲染同样的 Foo 组件，因此组件实例会被复用。而这个钩子就会在这个情况下被调用。</span></div><div class="line">    <span class="comment">// 可以访问组件实例 `this`</span></div><div class="line">  &#125;,</div><div class="line">  beforeRouteLeave (to, <span class="keyword">from</span>, next) &#123;</div><div class="line">    <span class="comment">// 导航离开该组件的对应路由时调用</span></div><div class="line">    <span class="comment">// 可以访问组件实例 `this`</span></div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>需要注意的是：<strong><code>beforeRouteEnter</code>钩子不能访问<code>this</code>，因为钩子在导航确认前被调用，因此，因此即将登场的<code>新组件</code>还没有被创建</strong></p>
+<p>不过，你可以通过传一个回调给 <code>next</code>来访问组件实例。在导航被确认的时候执行回调，并且把组件实例作为回调方法的参数。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">beforeRouteEnter(to, <span class="keyword">from</span>, next) &#123;</div><div class="line">    next(<span class="function"><span class="params">vm</span> =&gt;</span> &#123;</div><div class="line">        <span class="comment">// 通过 `vm` 访问组件实例</span></div><div class="line">    &#125;)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><strong>注意：</strong>可以在<code>beforeRouteLeave</code>中直接访问<code>this</code>。该钩子通常用来**阻止用户在还没有保存修改前突然离开。可以通过<code>next(false)</code>来取消导航</p>
+<h3 id="实例代码"><a href="#实例代码" class="headerlink" title="实例代码"></a>实例代码</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Vue的导航钩子<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">nav</span> <span class="attr">class</span>=<span class="string">"mainNav"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">router-link</span> <span class="attr">:to</span>=<span class="string">"&#123; name: 'home'&#125;"</span>&gt;</span>Home<span class="tag">&lt;/<span class="name">router-link</span>&gt;</span></div><div class="line">    </div><div class="line">    <span class="tag">&lt;<span class="name">router-link</span> <span class="attr">:to</span>=<span class="string">"&#123; name: 'user', params: &#123; userId: 123, userName: 'Test User 1'&#125;&#125;"</span>&gt;</span>User 123<span class="tag">&lt;/<span class="name">router-link</span>&gt;</span></div><div class="line">    </div><div class="line">    <span class="tag">&lt;<span class="name">router-link</span> <span class="attr">:to</span>=<span class="string">"&#123; name: 'user', params: &#123; userId: 456, userName: 'Test User 2'&#125;&#125;"</span>&gt;</span>User 456<span class="tag">&lt;/<span class="name">router-link</span>&gt;</span></div><div class="line">    </div><div class="line">    <span class="tag">&lt;<span class="name">router-link</span> <span class="attr">:to</span>=<span class="string">"&#123; name: 'user', params: &#123; userId: 789, userName: 'Test User3'&#125;&#125;"</span>&gt;</span>User 789<span class="tag">&lt;/<span class="name">router-link</span>&gt;</span></div><div class="line">    </div><div class="line">    <span class="tag">&lt;<span class="name">router-link</span> <span class="attr">to</span>=<span class="string">"/bar"</span>&gt;</span>Bar<span class="tag">&lt;/<span class="name">router-link</span>&gt;</span></div><div class="line">    </div><div class="line">    <span class="tag">&lt;<span class="name">router-link</span> <span class="attr">to</span>=<span class="string">"/foo"</span>&gt;</span>Foo<span class="tag">&lt;/<span class="name">router-link</span>&gt;</span></div><div class="line">    </div><div class="line">    <span class="tag">&lt;<span class="name">router-link</span> <span class="attr">to</span>=<span class="string">"/error"</span>&gt;</span>Error<span class="tag">&lt;/<span class="name">router-link</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">nav</span>&gt;</span></div><div class="line">  </div><div class="line">  <span class="tag">&lt;<span class="name">section</span> <span class="attr">class</span>=<span class="string">"mainBody"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">router-view</span>&gt;</span><span class="tag">&lt;/<span class="name">router-view</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">section</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="selector-id">#app</span> &#123;</div><div class="line">  <span class="attribute">max-width</span>: <span class="number">800px</span>;</div><div class="line">  <span class="attribute">margin</span>: auto;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-tag">code</span> &#123;</div><div class="line">  <span class="attribute">background</span>: <span class="number">#f2f2f2</span>;</div><div class="line">  <span class="attribute">padding</span>: <span class="number">0</span> <span class="number">0.5rem</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-class">.mainBody</span> &#123;</div><div class="line">  <span class="attribute">border-top</span>: <span class="number">1px</span> solid <span class="number">#ddd</span>;</div><div class="line">  <span class="attribute">border-bottom</span>: <span class="number">1px</span> solid <span class="number">#ddd</span>;</div><div class="line">  <span class="attribute">margin</span>: <span class="number">1rem</span> <span class="number">0</span>;</div><div class="line">  <span class="attribute">padding</span>: <span class="number">1rem</span> <span class="number">0</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-tag">nav</span><span class="selector-class">.mainNav</span> &#123;</div><div class="line">  &gt; * &#123;</div><div class="line">    <span class="selector-tag">padding</span>: 0 0<span class="selector-class">.75rem</span>;</div><div class="line">    <span class="selector-tag">text-decoration</span>: <span class="selector-tag">none</span>;</div><div class="line">  &#125;</div><div class="line">  </div><div class="line">  &gt; *<span class="selector-pseudo">:nth-last-child(n+2)</span> &#123;</div><div class="line">    <span class="attribute">border-right</span>: <span class="number">1px</span> solid <span class="number">#aaa</span>;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> Home = &#123;</div><div class="line">  template: <span class="string">`</span></div><div class="line"><span class="string">    &lt;section&gt;This is the home screen.&lt;/section&gt;</span></div><div class="line"><span class="string">  `</span></div><div class="line">&#125; </div><div class="line"></div><div class="line"><span class="keyword">const</span> Foo = &#123;</div><div class="line">  template: <span class="string">`</span></div><div class="line"><span class="string">    &lt;section&gt;You will not see this template when Foo is redirected to Home.&lt;/section&gt;</span></div><div class="line"><span class="string">  `</span></div><div class="line">&#125; </div><div class="line"></div><div class="line"><span class="keyword">const</span> Err = &#123;</div><div class="line">  template: <span class="string">`</span></div><div class="line"><span class="string">    &lt;section&gt;</span></div><div class="line"><span class="string">      You will not see this template. The error is passed to our error handler.</span></div><div class="line"><span class="string">    &lt;/section&gt;</span></div><div class="line"><span class="string">  `</span></div><div class="line">&#125; </div><div class="line"></div><div class="line"><span class="keyword">const</span> Bar = &#123;</div><div class="line">  template: <span class="string">`</span></div><div class="line"><span class="string">    &lt;section&gt;</span></div><div class="line"><span class="string">      &lt;div&gt;Bar&lt;/div&gt;</span></div><div class="line"><span class="string">    &lt;/section&gt;</span></div><div class="line"><span class="string">  `</span>,</div><div class="line">  beforeRouteEnter(to, <span class="keyword">from</span>, next) &#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'Entering Bar'</span>);</div><div class="line">    </div><div class="line">    next(<span class="function"><span class="params">vm</span> =&gt;</span> &#123;</div><div class="line">      vm.testFunc(<span class="string">'Some Message'</span>);</div><div class="line">      <span class="built_in">console</span>.log(<span class="string">'Fully Entered Bar'</span>)</div><div class="line">    &#125;)</div><div class="line">  &#125;,</div><div class="line">  </div><div class="line">  beforeRouteLeave( to, <span class="keyword">from</span>, next) &#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'leaving Bar'</span>);</div><div class="line">    next()</div><div class="line">  &#125;,</div><div class="line">  methods: &#123;</div><div class="line">    testFunc(msg) &#123;</div><div class="line">      <span class="built_in">console</span>.log(msg)</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">const</span> User = &#123;</div><div class="line">  props: [<span class="string">'userId'</span>, <span class="string">'userName'</span>],</div><div class="line">  template: <span class="string">`</span></div><div class="line"><span class="string">    &lt;div&gt;</span></div><div class="line"><span class="string">      User - &#123;&#123;userName&#125;&#125;(&#123;&#123;userId&#125;&#125;)</span></div><div class="line"><span class="string">    &lt;/div&gt;</span></div><div class="line"><span class="string">  `</span>,</div><div class="line">  </div><div class="line">  beforeRouteLeave( to, <span class="keyword">from</span>, next) &#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'Leaving User'</span>)</div><div class="line">    next()</div><div class="line">  &#125;,</div><div class="line">  </div><div class="line">  beforeRouteUpdate( to, <span class="keyword">from</span>, next) &#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'Reusing this component.'</span>)</div><div class="line">    next()</div><div class="line">  &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">const</span> routes = [</div><div class="line">  &#123;<span class="attr">path</span>: <span class="string">'/'</span>, <span class="attr">name</span>: <span class="string">'home'</span>, <span class="attr">component</span>: Home&#125;,</div><div class="line">  &#123;<span class="attr">path</span>: <span class="string">'/bar'</span>, <span class="attr">name</span>: <span class="string">'bar'</span>, <span class="attr">component</span>: Bar&#125;,</div><div class="line">  &#123;<span class="attr">path</span>: <span class="string">'/foo'</span>, <span class="attr">name</span>: <span class="string">'foo'</span>, <span class="attr">component</span>: Foo&#125;,</div><div class="line">  &#123;<span class="attr">path</span>: <span class="string">'/error'</span>, <span class="attr">name</span>: <span class="string">'error'</span>, <span class="attr">component</span>: Err&#125;,</div><div class="line">  &#123;</div><div class="line">    path: <span class="string">'/user/:userId'</span>,</div><div class="line">    name: <span class="string">'user'</span>,</div><div class="line">    component: User,</div><div class="line">    props: <span class="literal">true</span>,</div><div class="line">    beforeEnter: <span class="function">(<span class="params">to, <span class="keyword">from</span>, next</span>)=&gt;</span>&#123;</div><div class="line">      <span class="built_in">console</span>.log(<span class="string">'Entering User'</span>)</div><div class="line">      next()</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">]</div><div class="line"></div><div class="line"><span class="keyword">const</span> router = <span class="keyword">new</span> VueRouter(&#123;</div><div class="line">  routes</div><div class="line">&#125;)</div><div class="line"></div><div class="line">router.beforeEach(<span class="function">(<span class="params"> to, <span class="keyword">from</span> , next</span>) =&gt;</span> &#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'beforeEach'</span>)</div><div class="line">  <span class="comment">// re-route</span></div><div class="line">  <span class="keyword">if</span> (to.path === <span class="string">'/foo'</span>) &#123;</div><div class="line">    next(<span class="string">'/'</span>)</div><div class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (to.path === <span class="string">'/user/123'</span>) &#123;</div><div class="line">    next(<span class="literal">false</span>)</div><div class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (to.path === <span class="string">'/error'</span>) &#123;</div><div class="line">    <span class="keyword">const</span> err = <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'My Error Message'</span>)</div><div class="line">    next(err)</div><div class="line">  &#125; <span class="keyword">else</span> &#123;</div><div class="line">    next()</div><div class="line">  &#125;</div><div class="line">&#125;)</div><div class="line"></div><div class="line">router.afterEach(<span class="function">(<span class="params">to, <span class="keyword">from</span></span>) =&gt;</span> &#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">`Just moved from '<span class="subst">$&#123;<span class="keyword">from</span>.path&#125;</span>' to '<span class="subst">$&#123;to.path&#125;</span>' `</span>)</div><div class="line">&#125;)</div><div class="line"></div><div class="line">router.beforeResolve(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'beforeResolve'</span>)</div><div class="line">&#125;)</div><div class="line">router.onError(<span class="function"><span class="params">err</span> =&gt;</span> &#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'Handing this error'</span>, err)</div><div class="line">&#125;)</div><div class="line"></div><div class="line"><span class="keyword">const</span> app = <span class="keyword">new</span> Vue(&#123;</div><div class="line">  router </div><div class="line">&#125;).$mount(<span class="string">'#app'</span>)</div></pre></td></tr></table></figure>
+<p><strong>最主要的是理解导航的全过程，以及在各个阶段被调用钩子函数，再根据实际情况进行应用就可以了，类似于Vue组件的钩子函数(如：<code>created()</code>, <code>mounted()</code>等等)，其中<code>next()</code>方法非常重要，需要注意下</strong></p>
+<p>###参考</p>
+<ul>
+<li><a href="http://patrickwho.me/learn-vue-router-navigation-guards-quickly/" target="_blank" rel="external">Vue Router Navigation Guards Explained</a></li>
+<li><a href="https://router.vuejs.org/zh-cn/advanced/navigation-guards.html" target="_blank" rel="external">Vue-Router 导航钩子</a><br><a href="http://js.jirengu.com/picuy/1#/" target="_blank" rel="external">实验代码</a></li>
+</ul>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/09/14/ES6/" class="archive-article-date">
-  	<time datetime="2017-09-14T06:03:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-14</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/09/14/ES6/">ES6</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/09/11/前端单元测试初探/" class="archive-article-date">
-  	<time datetime="2017-09-11T08:03:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/09/11/前端单元测试初探/">前端单元测试初探</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">WEB</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Vue-Router</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=https://shaunzh.github.io/2017/09/27/Vue-Router-进阶/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/09/11/Promise初探/" class="archive-article-date">
-  	<time datetime="2017-09-11T08:01:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-11</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2017/09/27/Vue-Router-基础/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Vue-Router-基础</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/09/11/Promise初探/">Promise初探</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Javascript</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/09/10/leetcode1-10/" class="archive-article-date">
-  	<time datetime="2017-09-10T09:30:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-10</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/09/10/leetcode1-10/">leetcode1-10</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/09/10/callee和caller用法和区别/" class="archive-article-date">
-  	<time datetime="2017-09-10T03:04:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-10</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/09/10/callee和caller用法和区别/">callee和caller用法和区别</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Javascript</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/09/09/性能优化/" class="archive-article-date">
-  	<time datetime="2017-09-09T07:27:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/09/09/性能优化/">SEO的一些介绍</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">性能优化</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/09/09/HTML-CSS/" class="archive-article-date">
-  	<time datetime="2017-09-09T07:15:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/09/09/HTML-CSS/">HTML&amp;CSS</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">面试相关</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/09/09/预加载/" class="archive-article-date">
-  	<time datetime="2017-09-09T06:57:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/09/09/预加载/">预加载</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">性能优化</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/09/09/前端基本排序算法/" class="archive-article-date">
-  	<time datetime="2017-09-09T03:37:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/09/09/前端基本排序算法/">前端基本排序算法</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/09/06/Web前端整理/" class="archive-article-date">
-  	<time datetime="2017-09-06T08:24:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-06</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/09/06/Web前端整理/">Web前端面试提问</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">WEB</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Web/" class="article-tag-list-link color4">Web</a>
-        		</li>
-      		
-		</ul>
-	</div>
+        
+        
+    </div>
+</aside>
 
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+
   
   
-    </div></section>
   
 
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/">&laquo; Prev</a><a class="page-number" href="/archives/">1</a><span class="page-number current">2</span>
-    </nav>
+  
+
   
 
 
@@ -572,8 +378,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
